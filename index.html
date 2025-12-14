@@ -581,6 +581,164 @@
             }
         };
 
+        const traitThoughts = {
+            bravery: {
+                cowardly: {
+                    range: [-100, -80],
+                    support: { pl: "Tak! Wybierzmy to, co najbezpieczniejsze. Błagam!", en: "Yes! Let's choose the safest option. I beg you!" },
+                    oppose: { pl: "Nie! To prosty sposób, żeby sobie napytać biedy!", en: "No! That's a sure way to invite trouble!" }
+                },
+                fearful: {
+                    range: [-80, -50],
+                    support: { pl: "Ta opcja wydaje się najmniej groźna. Trzymajmy się tego.", en: "This option seems the least threatening. Let's stick to it." },
+                    oppose: { pl: "Czuję w kościach, że to się źle skończy. Nie róbmy tego.", en: "I can feel in my bones this will end badly. Let's not do it." }
+                },
+                cautious: {
+                    range: [-50, -10],
+                    support: { pl: "To rozsądne. Nie ma sensu podejmować zbędnego ryzyka.", en: "That's sensible. No point in taking unnecessary risks." },
+                    oppose: { pl: "Zbyt duża niewiadoma. Powinniśmy być bardziej asekuracyjni.", en: "Too many unknowns. We should be more conservative." }
+                },
+                composed: {
+                    range: [-10, 10],
+                    support: { pl: "Zachowajmy zimną krew. To najbardziej stabilne rozwiązanie.", en: "Let's keep our cool. This is the most stable solution." },
+                    oppose: { pl: "Nie traćmy głowy. To działanie jest zbyt gwałtowne.", en: "Let's not lose our heads. This action is too drastic." }
+                },
+                confident: {
+                    range: [10, 50],
+                    support: { pl: "Damy radę. Nie ma co się wahać.", en: "We can handle it. No need to hesitate." },
+                    oppose: { pl: "Zbytnia ostrożność nas tylko spowolni. Działajmy.", en: "Too much caution will only slow us down. Let's act." }
+                },
+                brave: {
+                    range: [50, 80],
+                    support: { pl: "To wymaga śmiałości, a mi jej nie brakuje. Zróbmy to!", en: "This requires boldness, and I have plenty. Let's do it!" },
+                    oppose: { pl: "Nie będę się chować po kątach. Wybierzmy coś ambitniejszego.", en: "I won't hide in the corners. Let's choose something more ambitious." }
+                },
+                fearless: {
+                    range: [80, 100],
+                    support: { pl: "Wszystko albo nic! Tylko wielkie czyny mają znaczenie!", en: "All or nothing! Only great deeds matter!" },
+                    oppose: { pl: "Bezpieczeństwo jest dla nudziarzy. Ja chcę poczuć, że żyję!", en: "Safety is for boring people. I want to feel alive!" }
+                }
+            },
+            altruism: {
+                vile: {
+                    range: [-100, -80],
+                    support: { pl: "Cudze cierpienie mnie nie obchodzi, byle bym ja zyskał.", en: "I don't care about others' suffering, as long as I gain." },
+                    oppose: { pl: "Mam im pomóc? Wolne żarty. Niech radzą sobie sami.", en: "Help them? You must be joking. Let them rot." }
+                },
+                selfish: {
+                    range: [-80, -50],
+                    support: { pl: "To przynosi korzyść mnie, więc w to wchodzę.", en: "This benefits me, so count me in." },
+                    oppose: { pl: "Nie widzę w tym zysku dla siebie. Nie jestem zainteresowany.", en: "I see no profit for myself here. I'm not interested." }
+                },
+                self_centered: {
+                    range: [-50, -10],
+                    support: { pl: "Zgoda, o ile nie będzie mnie to zbyt wiele kosztować.", en: "Agreed, as long as it doesn't cost me too much." },
+                    oppose: { pl: "Dlaczego mam poświęcać swój komfort dla kogoś innego?", en: "Why should I sacrifice my comfort for someone else?" }
+                },
+                impartial: {
+                    range: [-10, 10],
+                    support: { pl: "To sprawiedliwy układ. Nikogo nie faworyzuje.", en: "It's a fair arrangement. It favors no one." },
+                    oppose: { pl: "To by naruszyło równowagę. Musimy pozostać obiektywni.", en: "That would disturb the balance. We must remain objective." }
+                },
+                helpful: {
+                    range: [10, 50],
+                    support: { pl: "Warto podać pomocną dłoń. To dobra decyzja.", en: "It's worth lending a hand. That's a good decision." },
+                    oppose: { pl: "To nie jest w porządku wobec innych. Poszukajmy lepszej drogi.", en: "That's not fair to others. Let's find a better way." }
+                },
+                altruistic: {
+                    range: [50, 80],
+                    support: { pl: "Dobro ogółu jest ważniejsze niż moje. Zróbmy tak.", en: "The greater good is more important than mine. Let's do it." },
+                    oppose: { pl: "Nie mogę przejść obojętnie, gdy komuś dzieje się krzywda.", en: "I cannot turn a blind eye when someone is being harmed." }
+                },
+                saintly: {
+                    range: [80, 100],
+                    support: { pl: "Poświęcenie dla innych to najwyższa cnota. Jestem gotów.", en: "Sacrifice for others is the highest virtue. I am ready." },
+                    oppose: { pl: "Nie przyłożę ręki do niczego, co niesie cierpienie.", en: "I will not be party to anything that brings suffering." }
+                }
+            },
+            materialism: {
+                ascetic: {
+                    range: [-100, -80],
+                    support: { pl: "Odrzućmy to co zbędne. Mniej znaczy więcej.", en: "Let's discard the unnecessary. Less is more." },
+                    oppose: { pl: "To tylko pusta chciwość. Nie potrzebujemy tego.", en: "It's just empty greed. We don't need this." }
+                },
+                detached: {
+                    range: [-80, -50],
+                    support: { pl: "Dobra materialne nie mają znaczenia. Zostawmy to.", en: "Material goods don't matter. Let it go." },
+                    oppose: { pl: "Po co obciążać się kolejnymi rzeczami? To balast.", en: "Why burden ourselves with more things? It's dead weight." }
+                },
+                frugal: {
+                    range: [-50, -10],
+                    support: { pl: "To oszczędne rozwiązanie. Nie zmarnujemy zasobów.", en: "It's a frugal solution. We won't waste resources." },
+                    oppose: { pl: "To rozrzutność. Szkoda na to środków.", en: "That's wasteful. Not worth the resources." }
+                },
+                resourceful: {
+                    range: [-10, 10],
+                    support: { pl: "Wykorzystajmy to, co mamy. To praktyczne podejście.", en: "Let's use what we have. It's a practical approach." },
+                    oppose: { pl: "Stosunek zysku do wysiłku jest słaby. Nie opłaca się.", en: "The gain-to-effort ratio is poor. Not worth it." }
+                },
+                pragmatic: {
+                    range: [10, 50],
+                    support: { pl: "To solidna inwestycja. Wyjdziemy na tym na plus.", en: "That's a solid investment. We'll come out ahead." },
+                    oppose: { pl: "Nie widzę tutaj konkretnej wartości. Odpuśćmy.", en: "I don't see tangible value here. Let's pass." }
+                },
+                greedy: {
+                    range: [50, 80],
+                    support: { pl: "Bierzmy ile się da! Taka okazja może się nie powtórzyć.", en: "Let's take all we can! Such a chance might not return." },
+                    oppose: { pl: "Odejść z pustymi rękami? Nigdy w życiu!", en: "Walk away empty-handed? Never in my life!" }
+                },
+                miserly: {
+                    range: [80, 100],
+                    support: { pl: "To moje! Musimy to zabezpieczyć za wszelką cenę.", en: "It's mine! We must secure it at all costs." },
+                    oppose: { pl: "Nie wydam ani grosza, nie oddam ani okrucha!", en: "I won't spend a penny, I won't give up a crumb!" }
+                }
+            },
+            rationalism: {
+                mad: {
+                    range: [-100, -80],
+                    support: { pl: "Tak! Niech zapanuje chaos! Zróbmy coś szalonego!", en: "Yes! Let chaos reign! Let's do something crazy!" },
+                    oppose: { pl: "Nuda! To zbyt przewidywalne! Nie chcę!", en: "Boring! Too predictable! I refuse!" }
+                },
+                impulsive: {
+                    range: [-80, -50],
+                    support: { pl: "Nie ma czasu na myślenie! Działajmy teraz!", en: "No time to think! Let's act now!" },
+                    oppose: { pl: "Za dużo gadania, za mało akcji. Szkoda czasu.", en: "Too much talk, not enough action. Waste of time." }
+                },
+                emotional: {
+                    range: [-50, -10],
+                    support: { pl: "Czuję w sercu, że to właściwa droga.", en: "I feel in my heart this is the right way." },
+                    oppose: { pl: "Mam co do tego złe przeczucia. To nie pasuje.", en: "I have a bad feeling about this. It feels wrong." }
+                },
+                lucid: {
+                    range: [-10, 10],
+                    support: { pl: "Patrzę na to trzeźwym okiem. To ma sens.", en: "I'm looking at this clearly. It makes sense." },
+                    oppose: { pl: "To zniekształca rzeczywistość. Nie dajmy się zwariować.", en: "This distorts reality. Let's not get crazy." }
+                },
+                rational: {
+                    range: [10, 50],
+                    support: { pl: "Rozsądek podpowiada, że to najlepsze wyjście.", en: "Reason suggests this is the best outcome." },
+                    oppose: { pl: "To po prostu głupie. Zastanówmy się jeszcze raz.", en: "That's just foolish. Let's think it through again." }
+                },
+                logical: {
+                    range: [50, 80],
+                    support: { pl: "Analiza faktów wskazuje na to rozwiązanie. Wykonajmy je.", en: "Analysis of facts points to this solution. Let's execute." },
+                    oppose: { pl: "W tej logice jest błąd. To nie może się udać.", en: "There is a flaw in this logic. It cannot work." }
+                },
+                calculating: {
+                    range: [80, 100],
+                    support: { pl: "Prawdopodobieństwo sukcesu jest optymalne. Zatwierdzam.", en: "The probability of success is optimal. Approved." },
+                    oppose: { pl: "Kalkulacja strat jest niekorzystna. Odmawiam.", en: "The loss calculation is unfavorable. I refuse." }
+                }
+            }
+        };
+
+        const traitLevelMap = {
+            bravery: { l1: 'cowardly', l2: 'fearful', l3: 'cautious', l4: 'composed', l5: 'confident', l6: 'brave', l7: 'fearless' },
+            altruism: { l1: 'vile', l2: 'selfish', l3: 'self_centered', l4: 'impartial', l5: 'helpful', l6: 'altruistic', l7: 'saintly' },
+            materialism: { l1: 'ascetic', l2: 'detached', l3: 'frugal', l4: 'resourceful', l5: 'pragmatic', l6: 'greedy', l7: 'miserly' },
+            rationalism: { l1: 'mad', l2: 'impulsive', l3: 'emotional', l4: 'lucid', l5: 'rational', l6: 'logical', l7: 'calculating' }
+        };
+
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'pl' : 'en';
             applyLanguage();
@@ -768,18 +926,54 @@
 
             const dict = t[currentLang];
             let log = dict.log_header;
+            const traitTypeMap = ['bravery', 'altruism', 'materialism', 'rationalism'];
+
+            // Helper to get thoughts
+            const getThoughts = (sObj, wObj) => {
+                let thoughts = [];
+                traitTypeMap.forEach(type => {
+                    const statVal = sObj[type.charAt(0)]; // b, a, m, r
+                    const weightVal = wObj[type.charAt(0)];
+                    const impact = statVal * weightVal;
+
+                    if (impact !== 0) {
+                        const levelKey = getTraitLevel(statVal);
+                        const traitKey = traitLevelMap[type][levelKey];
+                        const thoughtData = traitThoughts[type][traitKey];
+
+                        if (thoughtData) {
+                            const text = impact > 0 ? thoughtData.support[currentLang] : thoughtData.oppose[currentLang];
+                            const traitName = t[currentLang][`tr_${type}`][levelKey];
+                            thoughts.push(`   "${text}" (B: ${traitName})`);
+                        }
+                    }
+                });
+                return thoughts;
+            };
 
             log += `>>> ${document.getElementById('opt-a-name').value.toUpperCase()} (${dict.log_score}: ${scoreA.toFixed(1)})\n`;
             log += `    ${dict.s_bravery}:      ${calcStr(s.b, wA.b)}\n`;
             log += `    ${dict.s_altruism}:    ${calcStr(s.a, wA.a)}\n`;
             log += `    ${dict.s_materialism}: ${calcStr(s.m, wA.m)}\n`;
-            log += `    ${dict.s_rationalism}: ${calcStr(s.r, wA.r)}\n\n`;
+            log += `    ${dict.s_rationalism}: ${calcStr(s.r, wA.r)}\n`;
+
+            const thoughtsA = getThoughts(s, wA);
+            if (thoughtsA.length > 0) {
+                log += `    💭:\n` + thoughtsA.join('\n') + `\n`;
+            }
+            log += `\n`;
 
             log += `>>> ${document.getElementById('opt-b-name').value.toUpperCase()} (${dict.log_score}: ${scoreB.toFixed(1)})\n`;
             log += `    ${dict.s_bravery}:      ${calcStr(s.b, wB.b)}\n`;
             log += `    ${dict.s_altruism}:    ${calcStr(s.a, wB.a)}\n`;
             log += `    ${dict.s_materialism}: ${calcStr(s.m, wB.m)}\n`;
-            log += `    ${dict.s_rationalism}: ${calcStr(s.r, wB.r)}\n\n`;
+            log += `    ${dict.s_rationalism}: ${calcStr(s.r, wB.r)}\n`;
+
+            const thoughtsB = getThoughts(s, wB);
+            if (thoughtsB.length > 0) {
+                log += `    💭:\n` + thoughtsB.join('\n') + `\n`;
+            }
+            log += `\n`;
 
             log += `-----------------------------------\n`;
             if (scoreA > scoreB) log += `${dict.log_decision}: Option A (${dict.log_advantage}: ${(scoreA - scoreB).toFixed(1)})`;
