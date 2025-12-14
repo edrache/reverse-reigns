@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG Simulator - Dashboard</title>
+    <style>
+        :root {
+            --primary: #2980b9;
+            --secondary: #bdc3c7;
+            --accent: #8e44ad;
+            --bg: #ecf0f1;
+            --panel: #ffffff;
+            --text: #2c3e50;
+            --success: #27ae60;
+            --danger: #c0392b;
+        }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--bg); color: var(--text); padding: 20px; margin: 0; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        
+        /* Layout */
+        .dashboard { display: grid; grid-template-columns: 350px 1fr; gap: 20px; align-items: start; }
+        
+        @media (max-width: 900px) {
+            .dashboard { grid-template-columns: 1fr; }
+        }
+
+        .card { background: var(--panel); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #dee2e6; }
+        .full-width { grid-column: 1 / -1; margin-top: 20px; }
+
+        h2 { margin-top: 0; font-size: 1.2rem; border-bottom: 2px solid #f1f1f1; padding-bottom: 10px; color: var(--primary); }
+        h3 { font-size: 1rem; color: #555; margin-bottom: 10px; }
+
+        /* Sliders Styling */
+        .slider-group { margin-bottom: 15px; padding: 10px; background: #f8f9fa; border-radius: 6px; border: 1px solid #eee; }
+        .slider-header { font-size: 0.85em; font-weight: bold; text-align: center; text-transform: uppercase; color: #7f8c8d; margin-bottom: 5px; display: flex; justify-content: space-between; }
+        
+        .slider-flex { display: flex; align-items: center; gap: 10px; }
+        .label-side { flex: 1; font-size: 0.75em; font-weight: 600; color: #95a5a6; transition: color 0.3s; }
+        .label-side.left { text-align: right; }
+        .label-side.right { text-align: left; }
+        
+        /* Highlight labels based on value */
+        .slider-group:hover .label-side.left { color: var(--danger); }
+        .slider-group:hover .label-side.right { color: var(--success); }
+
+        input[type="range"] { flex: 2; cursor: pointer; }
+
+        /* Value Bubbles */
+        .val-bubble { 
+            font-size: 0.8em; font-weight: bold; padding: 2px 8px; border-radius: 12px; min-width: 30px; text-align: center; color: white; background: var(--secondary);
+        }
+        .weight-val {
+            font-size: 0.85em; font-weight: bold; color: var(--primary);
+        }
+
+        /* Encounter Grid */
+        .encounter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 1100px) { .encounter-grid { grid-template-columns: 1fr; } }
+
+        /* Buttons & Inputs */
+        .btn-primary { background: var(--primary); color: white; border: none; padding: 12px; width: 100%; font-size: 1rem; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn-primary:hover { background: #2573a7; }
+        
+        .btn-sm { background: white; border: 1px solid #ccc; padding: 5px 10px; font-size: 0.85em; cursor: pointer; border-radius: 4px; }
+        .btn-sm:hover { background: #eee; }
+
+        .randomizer { display: flex; gap: 10px; align-items: center; margin-bottom: 15px; background: #eaf2f8; padding: 10px; border-radius: 6px; }
+        .randomizer input { width: 50px; text-align: center; border: 1px solid #ccc; border-radius: 4px; padding: 5px; }
+
+        /* Logs */
+        #result-log { font-family: 'Consolas', monospace; white-space: pre-wrap; line-height: 1.5; color: #ecf0f1; background: #34495e; padding: 20px; border-radius: 6px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="dashboard">
+        
+        <div class="card">
+            <h2>👤 Postać</h2>
+            <div style="font-size:0.9em; margin-bottom:10px; display:flex; justify-content:space-between;">
+                <span>Suma statystyk:</span>
+                <span id="stat-sum" style="font-weight:bold;">0</span>
+            </div>
+
+            <div class="randomizer">
+                <span style="font-size:0.8em;">Cel:</span>
+                <input type="number" id="target-sum" value="0">
+                <button class="btn-sm" style="background:var(--primary); color:white; border:none;" onclick="randomizeCharacter()">🎲 Losuj</button>
+            </div>
+
+            <div class="slider-group">
+                <div class="slider-header">Odwaga <span id="val-bravery" class="val-bubble">0</span></div>
+                <div class="slider-flex">
+                    <span class="label-side left">Tchórz</span>
+                    <input type="range" id="stat-bravery" min="-100" max="100" value="-40" oninput="updateUI()">
+                    <span class="label-side right">Bohater</span>
+                </div>
+            </div>
+
+            <div class="slider-group">
+                <div class="slider-header">Altruizm <span id="val-altruism" class="val-bubble">0</span></div>
+                <div class="slider-flex">
+                    <span class="label-side left">Egoista</span>
+                    <input type="range" id="stat-altruism" min="-100" max="100" value="20" oninput="updateUI()">
+                    <span class="label-side right">Altruista</span>
+                </div>
+            </div>
+
+            <div class="slider-group">
+                <div class="slider-header">Materializm <span id="val-materialism" class="val-bubble">0</span></div>
+                <div class="slider-flex">
+                    <span class="label-side left">Asceta</span>
+                    <input type="range" id="stat-materialism" min="-100" max="100" value="80" oninput="updateUI()">
+                    <span class="label-side right">Chciwiec</span>
+                </div>
+            </div>
+
+            <div class="slider-group">
+                <div class="slider-header">Racjonalizm <span id="val-rationalism" class="val-bubble">0</span></div>
+                <div class="slider-flex">
+                    <span class="label-side left">Impuls</span>
+                    <input type="range" id="stat-rationalism" min="-100" max="100" value="50" oninput="updateUI()">
+                    <span class="label-side right">Logika</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #f1f1f1; padding-bottom:10px; margin-bottom:15px;">
+                <h2 style="border:none; margin:0; padding:0;">⚔️ Scenariusz</h2>
+                <div>
+                    <button class="btn-sm" onclick="loadScenario('dragon')">Smok</button>
+                    <button class="btn-sm" onclick="loadScenario('beggar')">Żebrak</button>
+                    <button class="btn-sm" onclick="loadScenario('fire')">Pożar</button>
+                </div>
+            </div>
+
+            <div class="encounter-grid">
+                <div style="background: #fdfdfd; padding:10px; border:1px solid #eee; border-radius:6px;">
+                    <input type="text" id="opt-a-name" value="Opcja A" style="width:90%; font-weight:bold; margin-bottom:10px; padding:5px;">
+                    
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span>Dla kogo? (Odwaga)</span>
+                            <span id="disp-w-a-bravery" class="weight-val">0</span>
+                        </div>
+                        <div class="slider-flex">
+                            <span class="label-side left">Tchórz</span>
+                            <input type="range" id="w-a-bravery" min="-5" max="5" step="0.5" value="0" oninput="updateUI()">
+                            <span class="label-side right">Odważny</span>
+                        </div>
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span>Dla kogo? (Altruizm)</span>
+                            <span id="disp-w-a-altruism" class="weight-val">0</span>
+                        </div>
+                        <div class="slider-flex">
+                            <span class="label-side left">Egoista</span>
+                            <input type="range" id="w-a-altruism" min="-5" max="5" step="0.5" value="0" oninput="updateUI()">
+                            <span class="label-side right">Altruista</span>
+                        </div>
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span>Dla kogo? (Materializm)</span>
+                            <span id="disp-w-a-materialism" class="weight-val">0</span>
+                        </div>
+                        <div class="slider-flex">
+                            <span class="label-side left">Asceta</span>
+                            <input type="range" id="w-a-materialism" min="-5" max="5" step="0.5" value="0" oninput="updateUI()">
+                            <span class="label-side right">Chciwy</span>
+                        </div>
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span>Dla kogo? (Racjonalizm)</span>
+                            <span id="disp-w-a-rationalism" class="weight-val">0</span>
+                        </div>
+                        <div class="slider-flex">
+                            <span class="label-side left">Impuls</span>
+                            <input type="range" id="w-a-rationalism" min="-5" max="5" step="0.5" value="0" oninput="updateUI()">
+                            <span class="label-side right">Logik</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #fdfdfd; padding:10px; border:1px solid #eee; border-radius:6px;">
+                    <input type="text" id="opt-b-name" value="Opcja B" style="width:90%; font-weight:bold; margin-bottom:10px; padding:5px;">
+                    
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span>Dla kogo? (Odwaga)</span>
+                            <span id="disp-w-b-bravery" class="weight-val">0</span>
+                        </div>
+                        <div class="slider-flex">
+                            <span class="label-side left">Tchórz</span>
+                            <input type="range" id="w-b-bravery" min="-5" max="5" step="0.5" value="0" oninput="updateUI()">
+                            <span class="label-side right">Odważny</span>
+                        </div>
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span>Dla kogo? (Altruizm)</span>
+                            <span id="disp-w-b-altruism" class="weight-val">0</span>
+                        </div>
+                        <div class="slider-flex">
+                            <span class="label-side left">Egoista</span>
+                            <input type="range" id="w-b-altruism" min="-5" max="5" step="0.5" value="0" oninput="updateUI()">
+                            <span class="label-side right">Altruista</span>
+                        </div>
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span>Dla kogo? (Materializm)</span>
+                            <span id="disp-w-b-materialism" class="weight-val">0</span>
+                        </div>
+                        <div class="slider-flex">
+                            <span class="label-side left">Asceta</span>
+                            <input type="range" id="w-b-materialism" min="-5" max="5" step="0.5" value="0" oninput="updateUI()">
+                            <span class="label-side right">Chciwy</span>
+                        </div>
+                    </div>
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span>Dla kogo? (Racjonalizm)</span>
+                            <span id="disp-w-b-rationalism" class="weight-val">0</span>
+                        </div>
+                        <div class="slider-flex">
+                            <span class="label-side left">Impuls</span>
+                            <input type="range" id="w-b-rationalism" min="-5" max="5" step="0.5" value="0" oninput="updateUI()">
+                            <span class="label-side right">Logik</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card full-width">
+            <button class="btn-primary" onclick="calculate()">▶ OBLICZ DECYZJĘ</button>
+            <div style="margin-top:20px;">
+                <div id="result-log">Gotowy...</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // --- 1. CONFIGURATION ---
+    const ids = {
+        stats: ['stat-bravery', 'stat-altruism', 'stat-materialism', 'stat-rationalism'],
+        weightsA: ['w-a-bravery', 'w-a-altruism', 'w-a-materialism', 'w-a-rationalism'],
+        weightsB: ['w-b-bravery', 'w-b-altruism', 'w-b-materialism', 'w-b-rationalism']
+    };
+
+    const presets = {
+        dragon: {
+            aName: "Ukradnij Diament", bName: "Wycofaj się",
+            aWeights: [2.0, 0.0, 2.0, -1.5], // Bravery, Altruism, Materialism, Rationalism
+            bWeights: [-1.0, 0.0, -1.0, 1.0]
+        },
+        beggar: {
+            aName: "Kup mapę", bName: "Zastrasz żebraka",
+            aWeights: [0.0, 0.5, -0.5, -1.0], 
+            bWeights: [0.5, -2.0, 1.0, 0.0]
+        },
+        fire: {
+            aName: "Wbiegnij w ogień", bName: "Zawołaj straż",
+            aWeights: [3.0, 3.0, 0.0, -2.0], 
+            bWeights: [-1.0, 0.5, 0.0, 2.0]
+        }
+    };
+
+    // --- 2. UI UPDATE ---
+    function updateUI() {
+        // Character Stats
+        let sum = 0;
+        ids.stats.forEach(id => {
+            const val = parseInt(document.getElementById(id).value);
+            sum += val;
+            const bubble = document.getElementById(id.replace('stat-', 'val-'));
+            bubble.innerText = val;
+            bubble.style.backgroundColor = val > 0 ? '#27ae60' : (val < 0 ? '#c0392b' : '#95a5a6');
+        });
+
+        const target = parseInt(document.getElementById('target-sum').value) || 0;
+        const sumEl = document.getElementById('stat-sum');
+        sumEl.innerText = sum;
+        sumEl.style.color = (sum === target) ? '#27ae60' : '#c0392b';
+
+        // Weights Display (Adding numerical value next to slider)
+        [...ids.weightsA, ...ids.weightsB].forEach(id => {
+            const val = document.getElementById(id).value;
+            // Target the display span (e.g. disp-w-a-bravery)
+            const dispId = 'disp-' + id;
+            const el = document.getElementById(dispId);
+            if(el) {
+                el.innerText = val > 0 ? `+${val}` : val;
+                el.style.color = val > 0 ? '#27ae60' : (val < 0 ? '#c0392b' : '#bdc3c7');
+            }
+        });
+    }
+
+    // --- 3. RANDOMIZER ---
+    function randomizeCharacter() {
+        const target = parseInt(document.getElementById('target-sum').value) || 0;
+        let s1, s2, s3, s4, valid = false, attempts = 0;
+        
+        while (!valid && attempts < 200) {
+            s1 = Math.floor(Math.random() * 161) - 80;
+            s2 = Math.floor(Math.random() * 161) - 80;
+            s3 = Math.floor(Math.random() * 161) - 80;
+            s4 = target - (s1 + s2 + s3);
+            if (s4 >= -100 && s4 <= 100) valid = true;
+            attempts++;
+        }
+        if(!valid) { s1=target; s2=0; s3=0; s4=0; }
+
+        document.getElementById('stat-bravery').value = s1;
+        document.getElementById('stat-altruism').value = s2;
+        document.getElementById('stat-materialism').value = s3;
+        document.getElementById('stat-rationalism').value = s4;
+        updateUI();
+        document.getElementById('result-log').innerText = "Postać wylosowana.";
+    }
+
+    // --- 4. LOAD SCENARIO ---
+    function loadScenario(key) {
+        const d = presets[key];
+        document.getElementById('opt-a-name').value = d.aName;
+        document.getElementById('opt-b-name').value = d.bName;
+
+        const setW = (ids, vals) => {
+            ids.forEach((id, idx) => document.getElementById(id).value = vals[idx]);
+        };
+        setW(ids.weightsA, d.aWeights);
+        setW(ids.weightsB, d.bWeights);
+        updateUI();
+        document.getElementById('result-log').innerText = `Wczytano: ${d.aName} vs ${d.bName}`;
+    }
+
+    // --- 5. CALCULATION ---
+    function calculate() {
+        const getVal = (id) => parseFloat(document.getElementById(id).value);
+        
+        // Character
+        const s = { 
+            b: getVal('stat-bravery'), 
+            a: getVal('stat-altruism'), 
+            m: getVal('stat-materialism'), 
+            r: getVal('stat-rationalism') 
+        };
+
+        // Weights A
+        const wA = {
+            b: getVal('w-a-bravery'),
+            a: getVal('w-a-altruism'),
+            m: getVal('w-a-materialism'),
+            r: getVal('w-a-rationalism')
+        };
+
+        // Weights B
+        const wB = {
+            b: getVal('w-b-bravery'),
+            a: getVal('w-b-altruism'),
+            m: getVal('w-b-materialism'),
+            r: getVal('w-b-rationalism')
+        };
+
+        // Formula: Stat * Weight
+        const scoreA = (s.b * wA.b) + (s.a * wA.a) + (s.m * wA.m) + (s.r * wA.r);
+        const scoreB = (s.b * wB.b) + (s.a * wB.a) + (s.m * wB.m) + (s.r * wB.r);
+
+        // Formatting
+        const f = (n) => n.toFixed(0);
+        const calcStr = (stat, weight) => {
+            const res = (stat * weight).toFixed(0);
+            return `[${stat} x ${weight} = ${res}]`;
+        };
+
+        let log = `### WYNIK SYMULACJI ###\n\n`;
+        
+        log += `>>> ${document.getElementById('opt-a-name').value.toUpperCase()} (Wynik: ${scoreA.toFixed(1)})\n`;
+        log += `    Odwaga:      ${calcStr(s.b, wA.b)}\n`;
+        log += `    Altruizm:    ${calcStr(s.a, wA.a)}\n`;
+        log += `    Materializm: ${calcStr(s.m, wA.m)}\n`;
+        log += `    Racjonalizm: ${calcStr(s.r, wA.r)}\n\n`;
+
+        log += `>>> ${document.getElementById('opt-b-name').value.toUpperCase()} (Wynik: ${scoreB.toFixed(1)})\n`;
+        log += `    Odwaga:      ${calcStr(s.b, wB.b)}\n`;
+        log += `    Altruizm:    ${calcStr(s.a, wB.a)}\n`;
+        log += `    Materializm: ${calcStr(s.m, wB.m)}\n`;
+        log += `    Racjonalizm: ${calcStr(s.r, wB.r)}\n\n`;
+
+        log += `-----------------------------------\n`;
+        if (scoreA > scoreB) log += `✅ DECYZJA: Opcja A (Przewaga: ${(scoreA - scoreB).toFixed(1)})`;
+        else if (scoreB > scoreA) log += `✅ DECYZJA: Opcja B (Przewaga: ${(scoreB - scoreA).toFixed(1)})`;
+        else log += `⚖️ REMIS`;
+
+        document.getElementById('result-log').innerText = log;
+    }
+
+    window.onload = updateUI;
+</script>
+
+</body>
+</html>
