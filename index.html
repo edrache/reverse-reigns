@@ -1293,7 +1293,8 @@
                         thoughts.push({
                             text: `"${text}"`,
                             meta: `(${traitName})`,
-                            sentiment: impact > 0 ? 'pos' : 'neg'
+                            sentiment: impact > 0 ? 'pos' : 'neg',
+                            val: Math.abs(impact)
                         });
                     }
                 }
@@ -1317,6 +1318,16 @@
         function createBubble(item) {
             const el = document.createElement('div');
             el.className = `thought-bubble ${item.sentiment === 'pos' ? 'bubble-pos' : 'bubble-neg'}`;
+
+            // Size scaling based on impact value (0-400 range typically)
+            // Min size 50% (scale 0.5), Max size 100% (scale 1.0)
+            const maxVal = 400; // e.g. Stat 80 * Weight 5 = 400
+            const val = item.val || 50; // default if missing
+            const scale = 0.5 + (Math.min(val, maxVal) / maxVal) * 0.5;
+
+            el.style.fontSize = `${(1.2 * scale).toFixed(2)}rem`;
+            el.style.padding = `${(15 * scale).toFixed(0)}px ${(30 * scale).toFixed(0)}px`;
+
             el.innerHTML = `${item.text}<br><small style="font-size:0.75em; opacity:0.9; margin-top:5px; display:block;">${item.meta}</small>`;
             document.getElementById('comic-overlay').appendChild(el);
             // Bubbles persist until cleared by next action
