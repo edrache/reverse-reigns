@@ -254,6 +254,64 @@
         .btn-lang:hover {
             background: #eee;
         }
+
+        /* Comic Bubbles */
+        .thought-bubble {
+            position: fixed;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            padding: 15px 30px;
+            border-radius: 50px;
+            color: #fff;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            opacity: 0;
+            z-index: 9999;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            max-width: 80%;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .bubble-pos {
+            background: rgba(39, 174, 96, 0.95);
+            border: 3px solid #2ecc71;
+            color: #fff;
+        }
+
+        .bubble-neg {
+            background: rgba(192, 57, 43, 0.95);
+            border: 3px solid #e74c3c;
+            color: #fff;
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 20px) scale(0.5);
+            }
+
+            15% {
+                opacity: 1;
+                transform: translate(-50%, 0) scale(1.1);
+            }
+
+            25% {
+                transform: translate(-50%, 0) scale(1);
+            }
+
+            85% {
+                opacity: 1;
+                transform: translate(-50%, -50px);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -100px);
+            }
+        }
     </style>
 </head>
 
@@ -1205,8 +1263,6 @@
                 m: getVal('stat-materialism'),
                 r: getVal('stat-rationalism')
             };
-            // weights is { bravery: x, ... }
-            // Map keys
             const w = {
                 b: weights.bravery,
                 a: weights.altruism,
@@ -1214,20 +1270,13 @@
                 r: weights.rationalism
             };
 
-            // Re-use logic
-            // Copy-paste internal logic from updateUI/Calculate or separate helper?
-            // Separating helper was done in previous step (getThoughts). NOTE: getThoughts relies on 'traitLevelMap' and 'traitThoughts' globally.
-            // But getThoughts expected (sObj, wObj) where keys are 'b','a','m','r'
-
-            // We have definitions: const traitTypeMap = ['bravery'...]
-            // The helper 'getThoughts' uses sObj['b'] etc.
-
-            // We need to access 'getThoughts' function. It is currently inside 'calculate' function scope.
-            // Refactor needed: Move 'getThoughts' to global scope.
-            return getThoughtsGlobal(s, w);
+            const results = getThoughtsGlobal(s, w);
+            // Spawn bubbles
+            showComicBubbles(results);
+            return results.map(r => r.text);
         }
 
-        // Extracted from calculate()
+        // Extracted Global Helper
         function getThoughtsGlobal(sObj, wObj) {
             const traitTypeMap = ['bravery', 'altruism', 'materialism', 'rationalism'];
             let thoughts = [];
@@ -1244,11 +1293,40 @@
                     if (thoughtData) {
                         const text = impact > 0 ? thoughtData.support[currentLang] : thoughtData.oppose[currentLang];
                         const traitName = t[currentLang][`tr_${type}`][levelKey];
-                        thoughts.push(`   "${text}" (B: ${traitName})`);
+                        // thoughts.push(`   "${text}" (B: ${traitName})`);
+                        thoughts.push({
+                            text: `"${text}"`,
+                            meta: `(${traitName})`,
+                            sentiment: impact > 0 ? 'pos' : 'neg'
+                        });
                     }
                 }
             });
             return thoughts;
+        }
+
+        function showComicBubbles(thoughtsList) {
+            let delay = 0;
+            thoughtsList.forEach(item => {
+                setTimeout(() => {
+                    createBubble(item);
+                }, delay);
+                delay += 1500; // 1.5s per bubble
+            });
+        }
+
+        function createBubble(item) {
+            const el = document.createElement('div');
+            el.className = `thought-bubble ${item.sentiment === 'pos' ? 'bubble-pos' : 'bubble-neg'}`;
+            el.innerHTML = `${item.text}<br><small style="font-size:0.7em; opacity:0.8;">${item.meta}</small>`;
+            document.body.appendChild(el);
+
+            // Animate
+            el.style.animation = "popIn 2.5s forwards";
+
+            setTimeout(() => {
+                el.remove();
+            }, 2500);
         }
 
         function calculateGameDecisionFull() {
