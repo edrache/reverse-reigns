@@ -255,12 +255,27 @@
             background: #eee;
         }
 
-        /* Comic Bubbles */
-        .thought-bubble {
+        /* Comic Bubbles Overlay */
+        #comic-overlay {
             position: fixed;
-            left: 50%;
-            top: 40%;
-            transform: translate(-50%, -50%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            pointer-events: none;
+            /* Click-through */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .thought-bubble {
+            position: relative;
+            /* Stacked in flex */
+            margin: 10px;
             padding: 15px 30px;
             border-radius: 50px;
             color: #fff;
@@ -268,11 +283,10 @@
             font-size: 1.2rem;
             font-weight: bold;
             opacity: 0;
-            z-index: 9999;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            max-width: 80%;
+            max-width: 600px;
             text-align: center;
-            pointer-events: none;
+            animation: floatIn 0.5s ease-out forwards, floating 3s ease-in-out infinite;
         }
 
         .bubble-pos {
@@ -287,35 +301,37 @@
             color: #fff;
         }
 
-        @keyframes popIn {
+        @keyframes floatIn {
             0% {
                 opacity: 0;
-                transform: translate(-50%, 20px) scale(0.5);
-            }
-
-            15% {
-                opacity: 1;
-                transform: translate(-50%, 0) scale(1.1);
-            }
-
-            25% {
-                transform: translate(-50%, 0) scale(1);
-            }
-
-            85% {
-                opacity: 1;
-                transform: translate(-50%, -50px);
+                transform: translateY(50px) scale(0.8);
             }
 
             100% {
-                opacity: 0;
-                transform: translate(-50%, -100px);
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
             }
         }
     </style>
 </head>
 
 <body>
+
+    <div id="comic-overlay"></div>
 
     <div class="lang-toggle">
         <button class="btn-lang" onclick="toggleLanguage()">🇵🇱 / 🇬🇧</button>
@@ -1129,35 +1145,10 @@
             const game = document.getElementById('game-section');
             if (gameMode) {
                 // Hide simulator card
-                dash.style.display = 'none'; // Specifically hiding dashboard grid
-                // Show Character card only? No, user wants Character window visible.
-                // Re-structuring: Character Card should stay, Simulator Card (right side) hides.
-                // Actually user said: "Default view of playing scenario is Character window... And Game window".
-                // So we keep Character card, hide Simulator Card, show Game Card.
-
-                // Let's adjust layout manually
-                document.querySelector('.dashboard').style.display = 'grid'; // ensure grid
+                dash.style.display = 'grid'; // ensure grid
                 document.querySelectorAll('.card')[1].style.display = 'none'; // Hide Scenario/Calc/Log card
                 document.querySelectorAll('.card')[2].style.display = 'none'; // Hide bottom calc card if spread
-                // Wait, previous layout was .card (Char) and .card (Scenario). 
-                // Let's hide the second card specifically.
-
-                // Better approach:
-                // We have dashboard grid with two columns.
-                // Col 1: Character (Keep)
-                // Col 2: Simulator (Hide) -> Replace with Game Card.
-
-                // In DOM: 
-                // .dashboard children: [0] = Char Card, [1] = Simulator Card, [2] = Calc Card (full width)
-                // Actually the third card is inside dashboard? Yes lines 451.
-
-                const cards = document.querySelectorAll('.dashboard > .card');
-                cards[1].style.display = 'none';
-                cards[2].style.display = 'none';
                 game.style.display = 'block';
-                // Move game section into dashboard?
-                // The quick fix is to append game-section as a sibling in grid, but it is outside dashboard currently.
-                // Let's move it into dashboard via JS for layout consistency or just hide/show.
                 // User said "And game window". I'll trigger 'loadScenarios' with default if empty.
                 if (scenarios.length === 0) scenarios = defaultScenarios;
                 startScenario(0);
@@ -1166,6 +1157,7 @@
                 cards[1].style.display = 'block';
                 cards[2].style.display = 'block';
                 game.style.display = 'none';
+                clearBubbles(); // Clear any lingering bubbles
             }
         }
 
@@ -1209,6 +1201,7 @@
             document.getElementById('game-result-area').style.display = 'none';
             document.getElementById('game-log-container').style.display = 'none';
 
+            clearBubbles(); // Clear bubbles when starting a new scenario
             updateStepButton();
         }
 
@@ -1222,6 +1215,9 @@
 
         function nextStep() {
             if (!currentScenarioData) return;
+
+            // Clear bubbles from previous step before showing new ones
+            clearBubbles();
 
             if (scenarioStep === 0) {
                 // Show thoughts A
@@ -1305,28 +1301,33 @@
             return thoughts;
         }
 
+        let bubbleTimeouts = [];
+
         function showComicBubbles(thoughtsList) {
             let delay = 0;
             thoughtsList.forEach(item => {
-                setTimeout(() => {
+                const pid = setTimeout(() => {
                     createBubble(item);
                 }, delay);
-                delay += 1500; // 1.5s per bubble
+                bubbleTimeouts.push(pid);
+                delay += 800; // Faster sequence
             });
         }
 
         function createBubble(item) {
             const el = document.createElement('div');
             el.className = `thought-bubble ${item.sentiment === 'pos' ? 'bubble-pos' : 'bubble-neg'}`;
-            el.innerHTML = `${item.text}<br><small style="font-size:0.7em; opacity:0.8;">${item.meta}</small>`;
-            document.body.appendChild(el);
+            el.innerHTML = `${item.text}<br><small style="font-size:0.75em; opacity:0.9; margin-top:5px; display:block;">${item.meta}</small>`;
+            document.getElementById('comic-overlay').appendChild(el);
+            // Bubbles persist until cleared by next action
+        }
 
-            // Animate
-            el.style.animation = "popIn 2.5s forwards";
-
-            setTimeout(() => {
-                el.remove();
-            }, 2500);
+        function clearBubbles() {
+            // Clear pending timeouts
+            bubbleTimeouts.forEach(id => clearTimeout(id));
+            bubbleTimeouts = [];
+            // Clear BOM
+            document.getElementById('comic-overlay').innerHTML = '';
         }
 
         function calculateGameDecisionFull() {
