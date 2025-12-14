@@ -37,33 +37,43 @@ $$Score = \sum (TraitValue \times TraitWeight)$$
 
 ## 🚀 Features
 
-*   **Character Generator:** Ability to generate balanced characters with a specific sum of statistics (allows creating characters with flaws and virtues).
-*   **Intuitive Interface:** Weight sliders determine intent ("This option is for the Greedy"), not raw math.
+*   **Bilingual Support (PL/ENG):** Fully localized interface and content in Polish and English.
+*   **Game Mode:** Play through sequential scenarios with step-by-step decision making.
+*   **Sequential Thoughts:** Visualize the character's internal monologue as floating comic bubbles reflecting their personality traits.
+*   **Character Generator:** Ability to generate balanced characters with a specific sum of statistics.
+*   **Dynamic Trait Tags:** Visual indicators of character traits based on their stats (e.g., "Brave", "Greedy").
 *   **Detailed Logs:** Step-by-step calculation preview shows which trait tipped the scales.
-*   **Ready-made Scenarios:** Built-in presets (Dragon, Beggar, Fire) for quick testing.
+*   **JSON Scenario Import:** Load custom campaign scenarios via JSON files.
 
 ## 📦 Installation and Usage
 
-The project is entirely contained in a single HTML file (Single File Application).
+The project is entirely contained in a single `index.html` file (Single File Application) with an optional `scenarios.json` for campaign mode.
 
-1.  Download the `index.html` file.
-2.  Open the file in any modern browser (Chrome, Firefox, Edge, Safari).
-3.  **On the left:** Set the character personality using sliders or generate one.
-4.  **On the right:** Choose a scenario or set your own weights for Option A and B.
-5.  Click **"CALCULATE DECISION"** at the bottom of the screen.
+1.  Download the repository files.
+2.  Open `index.html` in any modern browser.
+3.  **Simulator Mode:**
+    *   Set character personality on the left.
+    *   Choose a scenario or set weights on the right.
+    *   Click **"CALCULATE DECISION"** to see the math in action.
+4.  **Game Mode:**
+    *   Click **"Switch to Game Mode"** to enter the narrative view.
+    *   Load scenarios via the JSON button (or use defaults).
+    *   Proceed through the story, observing character thoughts as floating bubbles before the final decision is revealed.
 
 ## 🛠 Extending (For Developers)
 
-To add your own permanent scenarios, edit the `presets` object in the `<script>` section of the HTML file:
+To add your own permanent scenarios, edit the `presets` object in `index.html` or create a JSON file with the structure found in `scenarios.json` and load it via the UI.
 
-```javascript
-const presets = {
-    new_scenario: {
-        aName: "Attack frontally",
-        bName: "Set a trap",
-        // Weights format: [Bravery, Altruism, Materialism, Rationalism]
-        aWeights: [2.0, 0.0, 0.0, -1.0], 
-        bWeights: [-0.5, 0.0, 0.0, 2.0]
-    },
-    // ...
-};
+```json
+[
+  {
+    "id": "example_scenario",
+    "title": { "pl": "Tytuł", "en": "Title" },
+    "description": { "pl": "Opis...", "en": "Description..." },
+    "options": {
+      "a": { "name": { "pl": "Opcja A", "en": "Option A" }, "weights": { "bravery": 1.0, "altruism": 0.0, "materialism": 0.0, "rationalism": 0.0 } },
+      "b": { "name": { "pl": "Opcja B", "en": "Option B" }, "weights": { "bravery": -1.0, "altruism": 0.0, "materialism": 0.0, "rationalism": 0.0 } }
+    }
+  }
+]
+```
