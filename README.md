@@ -1,67 +1,67 @@
-# RPG Decision Simulator (Symulator Decyzji RPG)
+# RPG Decision Simulator
 
-**RPG Decision Simulator** to interaktywne narzędzie webowe typu "dashboard", służące do projektowania, testowania i balansowania osobowości postaci niezależnych (NPC) w grach wideo przy użyciu systemów użyteczności (Utility Systems).
+**RPG Decision Simulator** is an interactive web-based dashboard tool designed for designing, testing, and balancing Non-Player Character (NPC) personalities in video games using Utility Systems.
 
-Narzędzie pozwala wizualizować, jak statystyki postaci (takie jak chciwość czy tchórzostwo) wpływają na podejmowane przez nią decyzje w konkretnych sytuacjach fabularnych.
+The tool allows you to visualize how character statistics (such as greed or cowardice) influence their decisions in specific narrative situations.
 
-## 🎯 Cel projektu
+## 🎯 Project Goal
 
-W tradycyjnym projektowaniu gier decyzje NPC są często sztywne (np. "zaatakuj, jeśli jesteś w zasięgu"). Ten symulator promuje podejście organiczne, gdzie:
+In traditional game design, NPC decisions are often rigid (e.g., "attack if within range"). This simulator promotes an organic approach where:
 
-1.  **Decyzja zależy od charakteru:** Ta sama sytuacja (np. spotkanie ze smokiem) skończy się inaczej dla tchórzliwego złodzieja, a inaczej dla honorowego rycerza.
-2.  **Wewnętrzny konflikt:** System modeluje "walkę myśli" (np. chęć zysku vs strach przed śmiercią).
-3.  **Matematyka zamiast "If/Else":** Zamiast drzewek decyzyjnych, używamy sumy ważonej, co pozwala na bardziej niuansowane zachowania.
+1.  **Decision depends on character:** The same situation (e.g., encountering a dragon) will end differently for a cowardly thief than for an honorable knight.
+2.  **Internal conflict:** The system models a "struggle of thoughts" (e.g., desire for profit vs. fear of death).
+3.  **Math instead of "If/Else":** Instead of decision trees, we use a weighted sum, which allows for more nuanced behaviors.
 
-## ⚙️ Model Matematyczny
+## ⚙️ Mathematical Model
 
-System opiera się na 4 głównych osiach charakteru (zakres od `-100` do `+100`):
+The system is based on 4 main character axes (range from `-100` to `+100`):
 
-1.  **Odwaga (Bravery):** Tchórzostwo ↔ Brawura
-2.  **Altruizm (Altruism):** Egoizm ↔ Poświęcenie
-3.  **Materializm (Materialism):** Ascetyzm ↔ Chciwość
-4.  **Racjonalizm (Rationalism):** Impulsywność ↔ Logika
+1.  **Bravery:** Cowardice ↔ Bravery
+2.  **Altruism:** Selfishness ↔ Sacrifice
+3.  **Materialism:** Asceticism ↔ Greed
+4.  **Rationalism:** Impulsiveness ↔ Logic
 
-Każda opcja w scenariuszu posiada **Wagi** (zakres od `-5` do `+5`), które określają "kogo dana opcja przyciąga".
+Each option in a scenario has **Weights** (range from `-5` to `+5`), which determine "who is attracted to this option".
 
-### Wzór obliczeń
+### Calculation Formula
 
-Dla każdej opcji (A i B) obliczany jest wynik punktowy:
+For each option (A and B), a score is calculated:
 
-$$Wynik = \sum (WartośćCechy \times WagaCechy)$$
+$$Score = \sum (TraitValue \times TraitWeight)$$
 
-> **Przykład:**
-> * Postać jest **Tchórzem** (Odwaga: `-80`).
-> * Opcja "Ucieczka" jest zaprojektowana **Dla Tchórza** (Waga Odwagi: `-2.0`).
-> * Obliczenie: `-80 * -2.0 = +160`.
-> * **Wniosek:** Wynik jest dodatni, więc postać bardzo chętnie wybierze ucieczkę.
+> **Example:**
+> * Character is a **Coward** (Bravery: `-80`).
+> * Option "Escape" is designed **For a Coward** (Bravery Weight: `-2.0`).
+> * Calculation: `-80 * -2.0 = +160`.
+> * **Conclusion:** The result is positive, so the character will very likely choose to escape.
 
-## 🚀 Funkcjonalności
+## 🚀 Features
 
-* **Generator Postaci:** Możliwość losowania zbalansowanych postaci o określonej sumie statystyk (pozwala tworzyć postacie z wadami i zaletami).
-* **Intuicyjny Interfejs:** Suwaki wag określają intencję ("Ta opcja jest dla Chciwych"), a nie surową matematykę.
-* **Szczegółowe Logi:** Podgląd obliczeń krok po kroku pokazuje, która cecha przeważyła szalę.
-* **Gotowe Scenariusze:** Wbudowane presety (Smok, Żebrak, Pożar) do szybkich testów.
+*   **Character Generator:** Ability to generate balanced characters with a specific sum of statistics (allows creating characters with flaws and virtues).
+*   **Intuitive Interface:** Weight sliders determine intent ("This option is for the Greedy"), not raw math.
+*   **Detailed Logs:** Step-by-step calculation preview shows which trait tipped the scales.
+*   **Ready-made Scenarios:** Built-in presets (Dragon, Beggar, Fire) for quick testing.
 
-## 📦 Instalacja i Użycie
+## 📦 Installation and Usage
 
-Projekt jest w całości zawarty w jednym pliku HTML (Single File Application).
+The project is entirely contained in a single HTML file (Single File Application).
 
-1.  Pobierz plik `index.html` (lub `rpg_simulator.html`).
-2.  Otwórz plik w dowolnej nowoczesnej przeglądarce (Chrome, Firefox, Edge, Safari).
-3.  **Po lewej stronie:** Ustaw suwakami osobowość postaci lub wylosuj ją.
-4.  **Po prawej stronie:** Wybierz scenariusz lub ustaw własne wagi dla Opcji A i B.
-5.  Kliknij **"OBLICZ DECYZJĘ"** na dole ekranu.
+1.  Download the `index.html` file.
+2.  Open the file in any modern browser (Chrome, Firefox, Edge, Safari).
+3.  **On the left:** Set the character personality using sliders or generate one.
+4.  **On the right:** Choose a scenario or set your own weights for Option A and B.
+5.  Click **"CALCULATE DECISION"** at the bottom of the screen.
 
-## 🛠 Rozszerzanie (Dla programistów)
+## 🛠 Extending (For Developers)
 
-Aby dodać własne, stałe scenariusze, edytuj obiekt `presets` w sekcji `<script>` pliku HTML:
+To add your own permanent scenarios, edit the `presets` object in the `<script>` section of the HTML file:
 
 ```javascript
 const presets = {
-    nowy_scenariusz: {
-        aName: "Atakuj frontalnie",
-        bName: "Zastaw pułapkę",
-        // Format wag: [Brawura, Altruizm, Materializm, Racjonalizm]
+    new_scenario: {
+        aName: "Attack frontally",
+        bName: "Set a trap",
+        // Weights format: [Bravery, Altruism, Materialism, Rationalism]
         aWeights: [2.0, 0.0, 0.0, -1.0], 
         bWeights: [-0.5, 0.0, 0.0, 2.0]
     },
