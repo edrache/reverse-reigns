@@ -216,61 +216,112 @@
             padding: 20px;
             border-radius: 6px;
         }
+
+        /* Tags */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .trait-tag {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            background: #dfe6e9;
+            color: #2c3e50;
+            font-weight: 600;
+            border: 1px solid #bdc3c7;
+        }
+
+        /* Lang Toggle */
+        .lang-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .btn-lang {
+            background: white;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .btn-lang:hover {
+            background: #eee;
+        }
     </style>
 </head>
 
 <body>
 
+    <div class="lang-toggle">
+        <button class="btn-lang" onclick="toggleLanguage()">🇵🇱 / 🇬🇧</button>
+    </div>
+
     <div class="container">
         <div class="dashboard">
 
             <div class="card">
-                <h2>👤 Character</h2>
+                <h2 data-i18n="char_title">👤 Character</h2>
+
+                <div class="tags-container" id="trait-tags">
+                    <!-- Tags will appear here -->
+                </div>
+
                 <div style="font-size:0.9em; margin-bottom:10px; display:flex; justify-content:space-between;">
-                    <span>Stat Sum:</span>
+                    <span data-i18n="stat_sum">Stat Sum:</span>
                     <span id="stat-sum" style="font-weight:bold;">0</span>
                 </div>
 
                 <div class="randomizer">
-                    <span style="font-size:0.8em;">Target:</span>
+                    <span data-i18n="target" style="font-size:0.8em;">Target:</span>
                     <input type="number" id="target-sum" value="0">
                     <button class="btn-sm" style="background:var(--primary); color:white; border:none;"
-                        onclick="randomizeCharacter()">🎲 Randomize</button>
+                        onclick="randomizeCharacter()" data-i18n="btn_random">🎲 Randomize</button>
                 </div>
 
                 <div class="slider-group">
-                    <div class="slider-header">Bravery <span id="val-bravery" class="val-bubble">0</span></div>
+                    <div class="slider-header"><span data-i18n="s_bravery">Bravery</span> <span id="val-bravery"
+                            class="val-bubble">0</span></div>
                     <div class="slider-flex">
-                        <span class="label-side left">Coward</span>
+                        <span class="label-side left" data-i18n="l_coward">Coward</span>
                         <input type="range" id="stat-bravery" min="-100" max="100" value="-40" oninput="updateUI()">
-                        <span class="label-side right">Hero</span>
+                        <span class="label-side right" data-i18n="l_hero">Hero</span>
                     </div>
                 </div>
 
                 <div class="slider-group">
-                    <div class="slider-header">Altruism <span id="val-altruism" class="val-bubble">0</span></div>
+                    <div class="slider-header"><span data-i18n="s_altruism">Altruism</span> <span id="val-altruism"
+                            class="val-bubble">0</span></div>
                     <div class="slider-flex">
-                        <span class="label-side left">Egoist</span>
+                        <span class="label-side left" data-i18n="l_egoist">Egoist</span>
                         <input type="range" id="stat-altruism" min="-100" max="100" value="20" oninput="updateUI()">
-                        <span class="label-side right">Altruist</span>
+                        <span class="label-side right" data-i18n="l_altruist">Altruist</span>
                     </div>
                 </div>
 
                 <div class="slider-group">
-                    <div class="slider-header">Materialism <span id="val-materialism" class="val-bubble">0</span></div>
+                    <div class="slider-header"><span data-i18n="s_materialism">Materialism</span> <span
+                            id="val-materialism" class="val-bubble">0</span></div>
                     <div class="slider-flex">
-                        <span class="label-side left">Ascetic</span>
+                        <span class="label-side left" data-i18n="l_ascetic">Ascetic</span>
                         <input type="range" id="stat-materialism" min="-100" max="100" value="80" oninput="updateUI()">
-                        <span class="label-side right">Greedy</span>
+                        <span class="label-side right" data-i18n="l_greedy">Greedy</span>
                     </div>
                 </div>
 
                 <div class="slider-group">
-                    <div class="slider-header">Rationalism <span id="val-rationalism" class="val-bubble">0</span></div>
+                    <div class="slider-header"><span data-i18n="s_rationalism">Rationalism</span> <span
+                            id="val-rationalism" class="val-bubble">0</span></div>
                     <div class="slider-flex">
-                        <span class="label-side left">Impulse</span>
+                        <span class="label-side left" data-i18n="l_impulse">Impulse</span>
                         <input type="range" id="stat-rationalism" min="-100" max="100" value="50" oninput="updateUI()">
-                        <span class="label-side right">Logic</span>
+                        <span class="label-side right" data-i18n="l_logic">Logic</span>
                     </div>
                 </div>
             </div>
@@ -278,11 +329,11 @@
             <div class="card">
                 <div
                     style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #f1f1f1; padding-bottom:10px; margin-bottom:15px;">
-                    <h2 style="border:none; margin:0; padding:0;">⚔️ Scenario</h2>
+                    <h2 style="border:none; margin:0; padding:0;" data-i18n="scen_title">⚔️ Scenario</h2>
                     <div>
-                        <button class="btn-sm" onclick="loadScenario('dragon')">Dragon</button>
-                        <button class="btn-sm" onclick="loadScenario('beggar')">Beggar</button>
-                        <button class="btn-sm" onclick="loadScenario('fire')">Fire</button>
+                        <button class="btn-sm" onclick="loadScenario('dragon')" data-i18n="btn_dragon">Dragon</button>
+                        <button class="btn-sm" onclick="loadScenario('beggar')" data-i18n="btn_beggar">Beggar</button>
+                        <button class="btn-sm" onclick="loadScenario('fire')" data-i18n="btn_fire">Fire</button>
                     </div>
                 </div>
 
@@ -293,50 +344,50 @@
 
                         <div class="slider-group">
                             <div class="slider-header">
-                                <span>For whom? (Bravery)</span>
+                                <span data-i18n="for_who_bravery">For whom? (Bravery)</span>
                                 <span id="disp-w-a-bravery" class="weight-val">0</span>
                             </div>
                             <div class="slider-flex">
-                                <span class="label-side left">Coward</span>
+                                <span class="label-side left" data-i18n="l_coward">Coward</span>
                                 <input type="range" id="w-a-bravery" min="-5" max="5" step="0.5" value="0"
                                     oninput="updateUI()">
-                                <span class="label-side right">Brave</span>
+                                <span class="label-side right" data-i18n="l_brave">Brave</span>
                             </div>
                         </div>
                         <div class="slider-group">
                             <div class="slider-header">
-                                <span>For whom? (Altruism)</span>
+                                <span data-i18n="for_who_altruism">For whom? (Altruism)</span>
                                 <span id="disp-w-a-altruism" class="weight-val">0</span>
                             </div>
                             <div class="slider-flex">
-                                <span class="label-side left">Egoist</span>
+                                <span class="label-side left" data-i18n="l_egoist">Egoist</span>
                                 <input type="range" id="w-a-altruism" min="-5" max="5" step="0.5" value="0"
                                     oninput="updateUI()">
-                                <span class="label-side right">Altruist</span>
+                                <span class="label-side right" data-i18n="l_altruist">Altruist</span>
                             </div>
                         </div>
                         <div class="slider-group">
                             <div class="slider-header">
-                                <span>For whom? (Materialism)</span>
+                                <span data-i18n="for_who_materialism">For whom? (Materialism)</span>
                                 <span id="disp-w-a-materialism" class="weight-val">0</span>
                             </div>
                             <div class="slider-flex">
-                                <span class="label-side left">Ascetic</span>
+                                <span class="label-side left" data-i18n="l_ascetic">Ascetic</span>
                                 <input type="range" id="w-a-materialism" min="-5" max="5" step="0.5" value="0"
                                     oninput="updateUI()">
-                                <span class="label-side right">Greedy</span>
+                                <span class="label-side right" data-i18n="l_greedy">Greedy</span>
                             </div>
                         </div>
                         <div class="slider-group">
                             <div class="slider-header">
-                                <span>For whom? (Rationalism)</span>
+                                <span data-i18n="for_who_rationalism">For whom? (Rationalism)</span>
                                 <span id="disp-w-a-rationalism" class="weight-val">0</span>
                             </div>
                             <div class="slider-flex">
-                                <span class="label-side left">Impulse</span>
+                                <span class="label-side left" data-i18n="l_impulse">Impulse</span>
                                 <input type="range" id="w-a-rationalism" min="-5" max="5" step="0.5" value="0"
                                     oninput="updateUI()">
-                                <span class="label-side right">Logic</span>
+                                <span class="label-side right" data-i18n="l_logic">Logic</span>
                             </div>
                         </div>
                     </div>
@@ -347,50 +398,50 @@
 
                         <div class="slider-group">
                             <div class="slider-header">
-                                <span>For whom? (Bravery)</span>
+                                <span data-i18n="for_who_bravery">For whom? (Bravery)</span>
                                 <span id="disp-w-b-bravery" class="weight-val">0</span>
                             </div>
                             <div class="slider-flex">
-                                <span class="label-side left">Coward</span>
+                                <span class="label-side left" data-i18n="l_coward">Coward</span>
                                 <input type="range" id="w-b-bravery" min="-5" max="5" step="0.5" value="0"
                                     oninput="updateUI()">
-                                <span class="label-side right">Brave</span>
+                                <span class="label-side right" data-i18n="l_brave">Brave</span>
                             </div>
                         </div>
                         <div class="slider-group">
                             <div class="slider-header">
-                                <span>For whom? (Altruism)</span>
+                                <span data-i18n="for_who_altruism">For whom? (Altruism)</span>
                                 <span id="disp-w-b-altruism" class="weight-val">0</span>
                             </div>
                             <div class="slider-flex">
-                                <span class="label-side left">Egoist</span>
+                                <span class="label-side left" data-i18n="l_egoist">Egoist</span>
                                 <input type="range" id="w-b-altruism" min="-5" max="5" step="0.5" value="0"
                                     oninput="updateUI()">
-                                <span class="label-side right">Altruist</span>
+                                <span class="label-side right" data-i18n="l_altruist">Altruist</span>
                             </div>
                         </div>
                         <div class="slider-group">
                             <div class="slider-header">
-                                <span>For whom? (Materialism)</span>
+                                <span data-i18n="for_who_materialism">For whom? (Materialism)</span>
                                 <span id="disp-w-b-materialism" class="weight-val">0</span>
                             </div>
                             <div class="slider-flex">
-                                <span class="label-side left">Ascetic</span>
+                                <span class="label-side left" data-i18n="l_ascetic">Ascetic</span>
                                 <input type="range" id="w-b-materialism" min="-5" max="5" step="0.5" value="0"
                                     oninput="updateUI()">
-                                <span class="label-side right">Greedy</span>
+                                <span class="label-side right" data-i18n="l_greedy">Greedy</span>
                             </div>
                         </div>
                         <div class="slider-group">
                             <div class="slider-header">
-                                <span>For whom? (Rationalism)</span>
+                                <span data-i18n="for_who_rationalism">For whom? (Rationalism)</span>
                                 <span id="disp-w-b-rationalism" class="weight-val">0</span>
                             </div>
                             <div class="slider-flex">
-                                <span class="label-side left">Impulse</span>
+                                <span class="label-side left" data-i18n="l_impulse">Impulse</span>
                                 <input type="range" id="w-b-rationalism" min="-5" max="5" step="0.5" value="0"
                                     oninput="updateUI()">
-                                <span class="label-side right">Logic</span>
+                                <span class="label-side right" data-i18n="l_logic">Logic</span>
                             </div>
                         </div>
                     </div>
@@ -398,7 +449,7 @@
             </div>
 
             <div class="card full-width">
-                <button class="btn-primary" onclick="calculate()">▶ CALCULATE DECISION</button>
+                <button class="btn-primary" onclick="calculate()" data-i18n="btn_calc">▶ CALCULATE DECISION</button>
                 <div style="margin-top:20px;">
                     <div id="result-log">Ready...</div>
                 </div>
@@ -408,6 +459,159 @@
     </div>
 
     <script>
+        // --- 0. LOCALIZATION & TRAITS DATA ---
+        let currentLang = 'en';
+
+        const t = {
+            en: {
+                // UI
+                char_title: "👤 Character",
+                stat_sum: "Stat Sum:",
+                target: "Target:",
+                btn_random: "🎲 Randomize",
+                scen_title: "⚔️ Scenario",
+                btn_dragon: "Dragon",
+                btn_beggar: "Beggar",
+                btn_fire: "Fire",
+                btn_calc: "▶ CALCULATE DECISION",
+
+                // Sliders Headers
+                s_bravery: "Bravery",
+                s_altruism: "Altruism",
+                s_materialism: "Materialism",
+                s_rationalism: "Rationalism",
+
+                // Sliders Labels
+                l_coward: "Coward", l_hero: "Hero", l_brave: "Brave",
+                l_egoist: "Egoist", l_altruist: "Altruist",
+                l_ascetic: "Ascetic", l_greedy: "Greedy",
+                l_impulse: "Impulse", l_logic: "Logic",
+
+                // WeightsHeaders
+                for_who_bravery: "For whom? (Bravery)",
+                for_who_altruism: "For whom? (Altruism)",
+                for_who_materialism: "For whom? (Materialism)",
+                for_who_rationalism: "For whom? (Rationalism)",
+
+                // Logs
+                log_ready: "Ready...",
+                log_random: "Character randomized.",
+                log_loaded: "Loaded: ",
+                log_header: "### SIMULATION RESULT ###\n\n",
+                log_score: "Score",
+                log_decision: "✅ DECISION",
+                log_draw: "⚖️ DRAW",
+                log_advantage: "Advantage",
+
+                // Traits
+                tr_bravery: {
+                    l1: "Cowardly", l2: "Fearful", l3: "Cautious", l4: "Balanced", l5: "Confident", l6: "Brave", l7: "Fearless"
+                },
+                tr_altruism: {
+                    l1: "Vile", l2: "Selfish", l3: "Self-centered", l4: "Neutral", l5: "Helpful", l6: "Altruistic", l7: "Saintly"
+                },
+                tr_materialism: {
+                    l1: "Ascetic", l2: "Detached", l3: "Frugal", l4: "Moderate", l5: "Pragmatic", l6: "Greedy", l7: "Miserly"
+                },
+                tr_rationalism: {
+                    l1: "Mad", l2: "Impulsive", l3: "Emotional", l4: "Ordinary", l5: "Rational", l6: "Logical", l7: "Calculating"
+                },
+                // Scenarios
+                scen_dragon_a: "Steal Diamond", scen_dragon_b: "Retreat",
+                scen_beggar_a: "Buy map", scen_beggar_b: "Intimidate beggar",
+                scen_fire_a: "Run into fire", scen_fire_b: "Call guards"
+            },
+            pl: {
+                // UI
+                char_title: "👤 Postać",
+                stat_sum: "Suma statystyk:",
+                target: "Cel:",
+                btn_random: "🎲 Losuj",
+                scen_title: "⚔️ Scenariusz",
+                btn_dragon: "Smok",
+                btn_beggar: "Żebrak",
+                btn_fire: "Pożar",
+                btn_calc: "▶ OBLICZ DECYZJĘ",
+
+                // Sliders Headers
+                s_bravery: "Odwaga",
+                s_altruism: "Altruizm",
+                s_materialism: "Materialism",
+                s_rationalism: "Racjonalizm",
+
+                // Sliders Labels (Context dependent, reusing some keys but logic same as EN)
+                l_coward: "Tchórz", l_hero: "Bohater", l_brave: "Odważny",
+                l_egoist: "Egoista", l_altruist: "Altruista",
+                l_ascetic: "Asceta", l_greedy: "Chciwy",
+                l_impulse: "Impuls", l_logic: "Logika",
+
+                // WeightsHeaders
+                for_who_bravery: "Dla kogo? (Odwaga)",
+                for_who_altruism: "Dla kogo? (Altruizm)",
+                for_who_materialism: "Dla kogo? (Materialism)",
+                for_who_rationalism: "Dla kogo? (Racjonalizm)",
+
+                // Logs
+                log_ready: "Gotowy...",
+                log_random: "Postać wylosowana.",
+                log_loaded: "Wczytano: ",
+                log_header: "### WYNIK SYMULACJI ###\n\n",
+                log_score: "Wynik",
+                log_decision: "✅ DECYZJA",
+                log_draw: "⚖️ REMIS",
+                log_advantage: "Przewaga",
+
+                // Traits
+                tr_bravery: {
+                    l1: "Tchórzliwy", l2: "Lękliwy", l3: "Ostrożny", l4: "Zrównoważony", l5: "Pewny siebie", l6: "Odważny", l7: "Nieustraszony"
+                },
+                tr_altruism: {
+                    l1: "Nikczemny", l2: "Egoista", l3: "Zapatrzony w siebie", l4: "Neutralny", l5: "Pomocny", l6: "Altruista", l7: "Święty"
+                },
+                tr_materialism: {
+                    l1: "Asceta", l2: "Wyrzeczony", l3: "Oszczędny", l4: "Umiarkowany", l5: "Pragmatyczny", l6: "Chciwy", l7: "Skąpiec"
+                },
+                tr_rationalism: {
+                    l1: "Szalony", l2: "Impulsywny", l3: "Emocjonalny", l4: "Zwyczajny", l5: "Rozsądny", l6: "Logiczny", l7: "Kalkulujący"
+                },
+                // Scenarios
+                scen_dragon_a: "Ukradnij diament", scen_dragon_b: "Wycofaj się",
+                scen_beggar_a: "Kup mapę", scen_beggar_b: "Zastrasz żebraka",
+                scen_fire_a: "Wbiegnij w ogień", scen_fire_b: "Zawołaj straż"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'pl' : 'en';
+            applyLanguage();
+            updateUI(); // To update tags
+        }
+
+        function applyLanguage() {
+            // Translation of static elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[currentLang][key]) {
+                    el.innerText = t[currentLang][key];
+                }
+            });
+
+            // Update log placeholder if needed, though usually log is dynamic.
+            // If log contains "Ready..." or "Gotowy...", we might reset it or leave it.
+            // A simple way is to check exact content match, but safer to just let user action update it next.
+        }
+
+        function getTraitLevel(val) {
+            if (val >= -100 && val < -80) return 'l1';
+            if (val >= -80 && val < -50) return 'l2';
+            if (val >= -50 && val < -10) return 'l3';
+            if (val >= -10 && val <= 10) return 'l4';
+            if (val > 10 && val <= 50) return 'l5';
+            if (val > 50 && val <= 80) return 'l6';
+            if (val > 80 && val <= 100) return 'l7';
+            return 'l4';
+        }
+
         // --- 1. CONFIGURATION ---
         const ids = {
             stats: ['stat-bravery', 'stat-altruism', 'stat-materialism', 'stat-rationalism'],
@@ -417,17 +621,17 @@
 
         const presets = {
             dragon: {
-                aName: "Steal Diamond", bName: "Retreat",
+                // Names managed by dictionary
                 aWeights: [2.0, 0.0, 2.0, -1.5], // Bravery, Altruism, Materialism, Rationalism
                 bWeights: [-1.0, 0.0, -1.0, 1.0]
             },
             beggar: {
-                aName: "Buy map", bName: "Intimidate beggar",
+                // Names managed by dictionary
                 aWeights: [0.0, 0.5, -0.5, -1.0],
                 bWeights: [0.5, -2.0, 1.0, 0.0]
             },
             fire: {
-                aName: "Run into fire", bName: "Call guards",
+                // Names managed by dictionary
                 aWeights: [3.0, 3.0, 0.0, -2.0],
                 bWeights: [-1.0, 0.5, 0.0, 2.0]
             }
@@ -437,12 +641,30 @@
         function updateUI() {
             // Character Stats
             let sum = 0;
-            ids.stats.forEach(id => {
+            const traits = [];
+            const traitTypeMap = ['bravery', 'altruism', 'materialism', 'rationalism'];
+
+            ids.stats.forEach((id, idx) => {
                 const val = parseInt(document.getElementById(id).value);
                 sum += val;
                 const bubble = document.getElementById(id.replace('stat-', 'val-'));
                 bubble.innerText = val;
                 bubble.style.backgroundColor = val > 0 ? '#27ae60' : (val < 0 ? '#c0392b' : '#95a5a6');
+
+                // Collect Trait
+                const levelKey = getTraitLevel(val);
+                const traitName = t[currentLang][`tr_${traitTypeMap[idx]}`][levelKey];
+                traits.push(traitName);
+            });
+
+            // Update Tags
+            const tagsContainer = document.getElementById('trait-tags');
+            tagsContainer.innerHTML = '';
+            traits.forEach(trait => {
+                const span = document.createElement('span');
+                span.className = 'trait-tag';
+                span.innerText = trait;
+                tagsContainer.appendChild(span);
             });
 
             const target = parseInt(document.getElementById('target-sum').value) || 0;
@@ -483,14 +705,18 @@
             document.getElementById('stat-materialism').value = s3;
             document.getElementById('stat-rationalism').value = s4;
             updateUI();
-            document.getElementById('result-log').innerText = "Character randomized.";
+            document.getElementById('result-log').innerText = t[currentLang].log_random;
         }
 
         // --- 4. LOAD SCENARIO ---
         function loadScenario(key) {
             const d = presets[key];
-            document.getElementById('opt-a-name').value = d.aName;
-            document.getElementById('opt-b-name').value = d.bName;
+            // Localization
+            const aName = t[currentLang][`scen_${key}_a`];
+            const bName = t[currentLang][`scen_${key}_b`];
+
+            document.getElementById('opt-a-name').value = aName;
+            document.getElementById('opt-b-name').value = bName;
 
             const setW = (ids, vals) => {
                 ids.forEach((id, idx) => document.getElementById(id).value = vals[idx]);
@@ -498,7 +724,7 @@
             setW(ids.weightsA, d.aWeights);
             setW(ids.weightsB, d.bWeights);
             updateUI();
-            document.getElementById('result-log').innerText = `Loaded: ${d.aName} vs ${d.bName}`;
+            document.getElementById('result-log').innerText = t[currentLang].log_loaded + ` ${aName} vs ${bName}`;
         }
 
         // --- 5. CALCULATION ---
@@ -540,29 +766,33 @@
                 return `[${stat} x ${weight} = ${res}]`;
             };
 
-            let log = `### SIMULATION RESULT ###\n\n`;
+            const dict = t[currentLang];
+            let log = dict.log_header;
 
-            log += `>>> ${document.getElementById('opt-a-name').value.toUpperCase()} (Score: ${scoreA.toFixed(1)})\n`;
-            log += `    Bravery:      ${calcStr(s.b, wA.b)}\n`;
-            log += `    Altruism:    ${calcStr(s.a, wA.a)}\n`;
-            log += `    Materialism: ${calcStr(s.m, wA.m)}\n`;
-            log += `    Rationalism: ${calcStr(s.r, wA.r)}\n\n`;
+            log += `>>> ${document.getElementById('opt-a-name').value.toUpperCase()} (${dict.log_score}: ${scoreA.toFixed(1)})\n`;
+            log += `    ${dict.s_bravery}:      ${calcStr(s.b, wA.b)}\n`;
+            log += `    ${dict.s_altruism}:    ${calcStr(s.a, wA.a)}\n`;
+            log += `    ${dict.s_materialism}: ${calcStr(s.m, wA.m)}\n`;
+            log += `    ${dict.s_rationalism}: ${calcStr(s.r, wA.r)}\n\n`;
 
-            log += `>>> ${document.getElementById('opt-b-name').value.toUpperCase()} (Score: ${scoreB.toFixed(1)})\n`;
-            log += `    Bravery:      ${calcStr(s.b, wB.b)}\n`;
-            log += `    Altruism:    ${calcStr(s.a, wB.a)}\n`;
-            log += `    Materialism: ${calcStr(s.m, wB.m)}\n`;
-            log += `    Rationalism: ${calcStr(s.r, wB.r)}\n\n`;
+            log += `>>> ${document.getElementById('opt-b-name').value.toUpperCase()} (${dict.log_score}: ${scoreB.toFixed(1)})\n`;
+            log += `    ${dict.s_bravery}:      ${calcStr(s.b, wB.b)}\n`;
+            log += `    ${dict.s_altruism}:    ${calcStr(s.a, wB.a)}\n`;
+            log += `    ${dict.s_materialism}: ${calcStr(s.m, wB.m)}\n`;
+            log += `    ${dict.s_rationalism}: ${calcStr(s.r, wB.r)}\n\n`;
 
             log += `-----------------------------------\n`;
-            if (scoreA > scoreB) log += `✅ DECISION: Option A (Advantage: ${(scoreA - scoreB).toFixed(1)})`;
-            else if (scoreB > scoreA) log += `✅ DECISION: Option B (Advantage: ${(scoreB - scoreA).toFixed(1)})`;
-            else log += `⚖️ DRAW`;
+            if (scoreA > scoreB) log += `${dict.log_decision}: Option A (${dict.log_advantage}: ${(scoreA - scoreB).toFixed(1)})`;
+            else if (scoreB > scoreA) log += `${dict.log_decision}: Option B (${dict.log_advantage}: ${(scoreB - scoreA).toFixed(1)})`;
+            else log += `${dict.log_draw}`;
 
             document.getElementById('result-log').innerText = log;
         }
 
-        window.onload = updateUI;
+        window.onload = function () {
+            updateUI();
+            applyLanguage();
+        };
     </script>
 
 </body>
