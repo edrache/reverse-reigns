@@ -456,6 +456,60 @@
             </div>
 
         </div>
+
+        <div id="game-section" style="display:none; margin-top:20px;">
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h2 id="scenario-title" style="border:none; margin:0; padding:0;">Scenario Title</h2>
+                    <span id="scenario-progress" style="font-size:0.9rem; color:#7f8c8d;">1/2</span>
+                </div>
+                <p id="scenario-desc" style="font-style:italic; margin-bottom:20px; color:#555;">Scenario Description...
+                </p>
+
+                <div class="encounter-grid">
+                    <div id="game-card-a"
+                        style="background:#fdfdfd; padding:15px; border:1px solid #eee; border-radius:6px; text-align:center;">
+                        <h3 id="game-opt-a-name" style="margin-top:0;">Option A</h3>
+                        <div id="game-thoughts-a"
+                            style="text-align:left; font-size:0.9em; color:#555; margin-top:10px; min-height:60px; white-space: pre-wrap;">
+                        </div>
+                    </div>
+                    <div id="game-card-b"
+                        style="background:#fdfdfd; padding:15px; border:1px solid #eee; border-radius:6px; text-align:center;">
+                        <h3 id="game-opt-b-name" style="margin-top:0;">Option B</h3>
+                        <div id="game-thoughts-b"
+                            style="text-align:left; font-size:0.9em; color:#555; margin-top:10px; min-height:60px; white-space: pre-wrap;">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="game-result-area"
+                    style="margin-top:20px; padding:15px; background:#eaf2f8; border-radius:6px; display:none; text-align:center;">
+                    <h3 id="game-decision-title">DECISION</h3>
+                </div>
+
+                <div style="margin-top:20px; display:flex; gap:10px; justify-content:center;">
+                    <button id="btn-next-step" class="btn-primary" style="width:auto; min-width:200px;"
+                        onclick="nextStep()">Start Scenario</button>
+                    <button class="btn-sm" onclick="toggleGameLog()">Show Log</button>
+                </div>
+
+                <div id="game-log-container" style="margin-top:20px; display:none;">
+                    <div id="game-log"
+                        style="font-family:'Consolas', monospace; white-space:pre-wrap; line-height:1.5; color:#ecf0f1; background:#34495e; padding:20px; border-radius:6px;">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div style="margin-top:20px; text-align:center;">
+            <button class="btn-sm" onclick="toggleGameMode()">🔄 Switch to Game Mode / Simulator</button>
+            <input type="file" id="file-upload" accept=".json" onchange="loadUserScenarios(this)" style="display:none;">
+            <button class="btn-sm" onclick="document.getElementById('file-upload').click()" style="margin-left:10px;">📂
+                Load Scenarios JSON</button>
+        </div>
+
     </div>
 
     <script>
@@ -983,9 +1037,285 @@
             document.getElementById('result-log').innerText = log;
         }
 
+        // --- 6. SEQUENTIAL GAME MODE ---
+        let gameMode = false;
+        let scenarios = [];
+        let currentScenarioIndex = 0;
+        let scenarioStep = 0; // 0: Start, 1: Thoughts A, 2: Thoughts B, 3: Result
+        let currentScenarioData = null;
+
+        const defaultScenarios = [
+            {
+                "id": "dragon_encounter",
+                "title": { "pl": "Spotkanie ze Smokiem", "en": "Dragon Encounter" },
+                "description": { "pl": "Wchodzisz do wielkiej komnaty, gdzie na stercie złota śpi smok. Zauważasz ogromny diament leżący tuż przy jego nosie.", "en": "You enter a grand chamber where a dragon sleeps atop a pile of gold. You notice a massive diamond lying right next to its nose." },
+                "options": {
+                    "a": { "name": { "pl": "Ukradnij diament", "en": "Steal Diamond" }, "weights": { "bravery": 2.0, "altruism": 0.0, "materialism": 2.0, "rationalism": -1.5 } },
+                    "b": { "name": { "pl": "Wycofaj się", "en": "Retreat" }, "weights": { "bravery": -1.0, "altruism": 0.0, "materialism": -1.0, "rationalism": 1.0 } }
+                }
+            },
+            {
+                "id": "beggar_choice",
+                "title": { "pl": "Żebrak na drodze", "en": "Beggar on the Road" },
+                "description": { "pl": "Stary człowiek prosi cię o monetę, oferując w zamian starą, zniszczoną mapę.", "en": "An old man asks you for a coin, offering an old, tattered map in return." },
+                "options": {
+                    "a": { "name": { "pl": "Kup mapę", "en": "Buy map" }, "weights": { "bravery": 0.0, "altruism": 0.5, "materialism": -0.5, "rationalism": -1.0 } },
+                    "b": { "name": { "pl": "Zastrasz żebraka", "en": "Intimidate beggar" }, "weights": { "bravery": 0.5, "altruism": -2.0, "materialism": 1.0, "rationalism": 0.0 } }
+                }
+            }
+        ];
+
+        function toggleGameMode() {
+            gameMode = !gameMode;
+            const dash = document.querySelector('.dashboard');
+            const game = document.getElementById('game-section');
+            if (gameMode) {
+                // Hide simulator card
+                dash.style.display = 'none'; // Specifically hiding dashboard grid
+                // Show Character card only? No, user wants Character window visible.
+                // Re-structuring: Character Card should stay, Simulator Card (right side) hides.
+                // Actually user said: "Default view of playing scenario is Character window... And Game window".
+                // So we keep Character card, hide Simulator Card, show Game Card.
+
+                // Let's adjust layout manually
+                document.querySelector('.dashboard').style.display = 'grid'; // ensure grid
+                document.querySelectorAll('.card')[1].style.display = 'none'; // Hide Scenario/Calc/Log card
+                document.querySelectorAll('.card')[2].style.display = 'none'; // Hide bottom calc card if spread
+                // Wait, previous layout was .card (Char) and .card (Scenario). 
+                // Let's hide the second card specifically.
+
+                // Better approach:
+                // We have dashboard grid with two columns.
+                // Col 1: Character (Keep)
+                // Col 2: Simulator (Hide) -> Replace with Game Card.
+
+                // In DOM: 
+                // .dashboard children: [0] = Char Card, [1] = Simulator Card, [2] = Calc Card (full width)
+                // Actually the third card is inside dashboard? Yes lines 451.
+
+                const cards = document.querySelectorAll('.dashboard > .card');
+                cards[1].style.display = 'none';
+                cards[2].style.display = 'none';
+                game.style.display = 'block';
+                // Move game section into dashboard?
+                // The quick fix is to append game-section as a sibling in grid, but it is outside dashboard currently.
+                // Let's move it into dashboard via JS for layout consistency or just hide/show.
+                // User said "And game window". I'll trigger 'loadScenarios' with default if empty.
+                if (scenarios.length === 0) scenarios = defaultScenarios;
+                startScenario(0);
+            } else {
+                const cards = document.querySelectorAll('.dashboard > .card');
+                cards[1].style.display = 'block';
+                cards[2].style.display = 'block';
+                game.style.display = 'none';
+            }
+        }
+
+        function loadUserScenarios(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    scenarios = JSON.parse(e.target.result);
+                    alert("Scenarios loaded: " + scenarios.length);
+                    if (gameMode) startScenario(0);
+                } catch (err) {
+                    alert("Invalid JSON");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function startScenario(index) {
+            if (index >= scenarios.length) {
+                alert("End of Scenarios!");
+                return;
+            }
+            currentScenarioIndex = index;
+            currentScenarioData = scenarios[index];
+            scenarioStep = 0;
+
+            // Render basic info
+            const s = currentScenarioData;
+            document.getElementById('scenario-title').innerText = s.title[currentLang];
+            document.getElementById('scenario-desc').innerText = s.description[currentLang];
+            document.getElementById('scenario-progress').innerText = `${index + 1} / ${scenarios.length}`;
+
+            document.getElementById('game-opt-a-name').innerText = s.options.a.name[currentLang];
+            document.getElementById('game-opt-b-name').innerText = s.options.b.name[currentLang];
+
+            // Reset Dynamic Areas
+            document.getElementById('game-thoughts-a').innerText = '';
+            document.getElementById('game-thoughts-b').innerText = '';
+            document.getElementById('game-result-area').style.display = 'none';
+            document.getElementById('game-log-container').style.display = 'none';
+
+            updateStepButton();
+        }
+
+        function updateStepButton() {
+            const btn = document.getElementById('btn-next-step');
+            if (scenarioStep === 0) btn.innerText = "💭 " + t[currentLang].btn_calc.replace('▶ ', '') + " (A)"; // Analyze A
+            if (scenarioStep === 1) btn.innerText = "💭 " + t[currentLang].btn_calc.replace('▶ ', '') + " (B)"; // Analyze B
+            if (scenarioStep === 2) btn.innerText = "📝 " + t[currentLang].log_decision; // Decision
+            if (scenarioStep === 3) btn.innerText = "➡ Next Scenario";
+        }
+
+        function nextStep() {
+            if (!currentScenarioData) return;
+
+            if (scenarioStep === 0) {
+                // Show thoughts A
+                const thoughts = calculateGameThoughts(currentScenarioData.options.a.weights);
+                document.getElementById('game-thoughts-a').innerText = thoughts.length > 0 ? "💭:\n" + thoughts.join('\n') : "(...)";
+                scenarioStep++;
+            } else if (scenarioStep === 1) {
+                // Show thoughts B
+                const thoughts = calculateGameThoughts(currentScenarioData.options.b.weights);
+                document.getElementById('game-thoughts-b').innerText = thoughts.length > 0 ? "💭:\n" + thoughts.join('\n') : "(...)";
+                scenarioStep++;
+            } else if (scenarioStep === 2) {
+                // Show Result
+                const res = calculateGameDecisionFull();
+                const area = document.getElementById('game-result-area');
+                document.getElementById('game-decision-title').innerText = res.winner;
+
+                // Colorize
+                if (res.winner.includes("A")) area.style.backgroundColor = "#d4efdf"; // Greenish
+                else if (res.winner.includes("B")) area.style.backgroundColor = "#fadbd8"; // Reddish
+                else area.style.backgroundColor = "#eaf2f8";
+
+                document.getElementById('game-log').innerText = res.log;
+                area.style.display = 'block';
+                scenarioStep++;
+            } else if (scenarioStep === 3) {
+                // Next Scenario
+                startScenario(currentScenarioIndex + 1);
+            }
+            updateStepButton();
+        }
+
+        // Helper for Game Mode Calculation
+        function calculateGameThoughts(weights) {
+            const getVal = (id) => parseFloat(document.getElementById(id).value);
+            const s = {
+                b: getVal('stat-bravery'),
+                a: getVal('stat-altruism'),
+                m: getVal('stat-materialism'),
+                r: getVal('stat-rationalism')
+            };
+            // weights is { bravery: x, ... }
+            // Map keys
+            const w = {
+                b: weights.bravery,
+                a: weights.altruism,
+                m: weights.materialism,
+                r: weights.rationalism
+            };
+
+            // Re-use logic
+            // Copy-paste internal logic from updateUI/Calculate or separate helper?
+            // Separating helper was done in previous step (getThoughts). NOTE: getThoughts relies on 'traitLevelMap' and 'traitThoughts' globally.
+            // But getThoughts expected (sObj, wObj) where keys are 'b','a','m','r'
+
+            // We have definitions: const traitTypeMap = ['bravery'...]
+            // The helper 'getThoughts' uses sObj['b'] etc.
+
+            // We need to access 'getThoughts' function. It is currently inside 'calculate' function scope.
+            // Refactor needed: Move 'getThoughts' to global scope.
+            return getThoughtsGlobal(s, w);
+        }
+
+        // Extracted from calculate()
+        function getThoughtsGlobal(sObj, wObj) {
+            const traitTypeMap = ['bravery', 'altruism', 'materialism', 'rationalism'];
+            let thoughts = [];
+            traitTypeMap.forEach(type => {
+                const statVal = sObj[type.charAt(0)]; // b, a, m, r
+                const weightVal = wObj[type.charAt(0)];
+                const impact = statVal * weightVal;
+
+                if (impact !== 0) {
+                    const levelKey = getTraitLevel(statVal);
+                    const traitKey = traitLevelMap[type][levelKey];
+                    const thoughtData = traitThoughts[type][traitKey];
+
+                    if (thoughtData) {
+                        const text = impact > 0 ? thoughtData.support[currentLang] : thoughtData.oppose[currentLang];
+                        const traitName = t[currentLang][`tr_${type}`][levelKey];
+                        thoughts.push(`   "${text}" (B: ${traitName})`);
+                    }
+                }
+            });
+            return thoughts;
+        }
+
+        function calculateGameDecisionFull() {
+            const getVal = (id) => parseFloat(document.getElementById(id).value);
+            const s = {
+                b: getVal('stat-bravery'),
+                a: getVal('stat-altruism'),
+                m: getVal('stat-materialism'),
+                r: getVal('stat-rationalism')
+            };
+            const optA = currentScenarioData.options.a;
+            const optB = currentScenarioData.options.b;
+
+            const wA = { b: optA.weights.bravery, a: optA.weights.altruism, m: optA.weights.materialism, r: optA.weights.rationalism };
+            const wB = { b: optB.weights.bravery, a: optB.weights.altruism, m: optB.weights.materialism, r: optB.weights.rationalism };
+
+            const scoreA = (s.b * wA.b) + (s.a * wA.a) + (s.m * wA.m) + (s.r * wA.r);
+            const scoreB = (s.b * wB.b) + (s.a * wB.a) + (s.m * wB.m) + (s.r * wB.r);
+
+            let winner = "";
+            let log = t[currentLang].log_header;
+            const calcStr = (stat, weight) => `[${stat} x ${weight} = ${(stat * weight).toFixed(0)}]`;
+            const dict = t[currentLang];
+
+            // A
+            log += `>>> ${optA.name[currentLang].toUpperCase()} (${dict.log_score}: ${scoreA.toFixed(1)})\n`;
+            log += `    ${dict.s_bravery}:      ${calcStr(s.b, wA.b)}\n`;
+            log += `    ${dict.s_altruism}:    ${calcStr(s.a, wA.a)}\n`;
+            log += `    ${dict.s_materialism}: ${calcStr(s.m, wA.m)}\n`;
+            log += `    ${dict.s_rationalism}: ${calcStr(s.r, wA.r)}\n\n`;
+
+            // B
+            log += `>>> ${optB.name[currentLang].toUpperCase()} (${dict.log_score}: ${scoreB.toFixed(1)})\n`;
+            log += `    ${dict.s_bravery}:      ${calcStr(s.b, wB.b)}\n`;
+            log += `    ${dict.s_altruism}:    ${calcStr(s.a, wB.a)}\n`;
+            log += `    ${dict.s_materialism}: ${calcStr(s.m, wB.m)}\n`;
+            log += `    ${dict.s_rationalism}: ${calcStr(s.r, wB.r)}\n\n`;
+
+            if (scoreA > scoreB) {
+                winner = `✅ ${optA.name[currentLang]}`;
+                log += `${dict.log_decision}: ${optA.name[currentLang]} (${dict.log_advantage}: ${(scoreA - scoreB).toFixed(1)})`;
+            } else if (scoreB > scoreA) {
+                winner = `✅ ${optB.name[currentLang]}`;
+                log += `${dict.log_decision}: ${optB.name[currentLang]} (${dict.log_advantage}: ${(scoreB - scoreA).toFixed(1)})`;
+            } else {
+                winner = "⚖️ DRAW";
+                log += `${dict.log_draw}`;
+            }
+
+            return { winner, log };
+        }
+
+        function toggleGameLog() {
+            const el = document.getElementById('game-log-container');
+            el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+
         window.onload = function () {
             updateUI();
             applyLanguage();
+            // Move game section to dashboard for layout
+            const dash = document.querySelector('.dashboard');
+            const game = document.getElementById('game-section');
+            dash.appendChild(game);
+            game.className = 'card full-width'; // Add card class logic
+            game.style.marginTop = '0';
+            game.style.gridColumn = '2 / -1'; // Take right column place
         };
     </script>
 
