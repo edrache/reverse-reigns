@@ -1,0 +1,187 @@
+[
+    {
+        "id": "broken_wagon",
+        "title": {
+            "pl": "Zepsuty wóz",
+            "en": "Broken Wagon"
+        },
+        "description": {
+            "pl": "Na leśnej drodze dostrzegasz kupca przy wozie ze złamaną osią. W oddali słychać wycie wilków. Wóz jest pełen towarów.",
+            "en": "On a forest road, you spot a merchant with a broken axle. Wolves are howling in the distance. The wagon is full of goods."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Pomóż i chroń kupca",
+                    "en": "Help and protect merchant"
+                },
+                "weights": {
+                    "bravery": 1.5,
+                    "altruism": 2.0,
+                    "materialism": -0.5,
+                    "rationalism": -0.5
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Zostaw go",
+                    "en": "Leave him"
+                },
+                "weights": {
+                    "bravery": -1.0,
+                    "altruism": -1.5,
+                    "materialism": 0.0,
+                    "rationalism": 1.0
+                }
+            }
+        }
+    },
+    {
+        "id": "whispering_well",
+        "title": {
+            "pl": "Szeptająca Studnia",
+            "en": "Whispering Well"
+        },
+        "description": {
+            "pl": "Znajdujesz studnię z lśniącą cieczą. Głosy w głowie obiecują potęgę, ale wielu postradało tu zmysły.",
+            "en": "You find a well with glowing liquid. Voices in your head promise power, but many have lost their minds here."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Napij się",
+                    "en": "Drink"
+                },
+                "weights": {
+                    "bravery": 1.0,
+                    "altruism": 0.0,
+                    "materialism": 1.5,
+                    "rationalism": -2.0
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Zapieczętuj wejście",
+                    "en": "Seal the entrance"
+                },
+                "weights": {
+                    "bravery": -0.5,
+                    "altruism": 0.5,
+                    "materialism": -1.0,
+                    "rationalism": 1.5
+                }
+            }
+        }
+    },
+    {
+        "id": "thief_crowd",
+        "title": {
+            "pl": "Złodziej w tłumie",
+            "en": "Thief in the Crowd"
+        },
+        "description": {
+            "pl": "Łapiesz wygłodniałego chłopca na kradzieży twojej sakiewki. Straż miejska jest tuż obok.",
+            "en": "You catch a starving boy stealing your purse. The city guard is just nearby."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Oddaj go straży",
+                    "en": "Hand him to guards"
+                },
+                "weights": {
+                    "bravery": 0.0,
+                    "altruism": -2.0,
+                    "materialism": 0.5,
+                    "rationalism": 1.5
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Puść wolno",
+                    "en": "Let him go"
+                },
+                "weights": {
+                    "bravery": 0.0,
+                    "altruism": 2.0,
+                    "materialism": -0.5,
+                    "rationalism": -1.0
+                }
+            }
+        }
+    },
+    {
+        "id": "gambler_tavern",
+        "title": {
+            "pl": "Hazardzista",
+            "en": "The Gambler"
+        },
+        "description": {
+            "pl": "Nieznajomy kładzie na stole wielki rubin. Proponuje grę w kości o wszystko co masz. Szanse są marne.",
+            "en": "A stranger places a huge ruby on the table. He proposes a dice game for everything you own. Odds are slim."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Zagraj va banque",
+                    "en": "Go all in"
+                },
+                "weights": {
+                    "bravery": 1.0,
+                    "altruism": 0.0,
+                    "materialism": 2.0,
+                    "rationalism": -2.0
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Odejdź od stołu",
+                    "en": "Leave the table"
+                },
+                "weights": {
+                    "bravery": -0.5,
+                    "altruism": 0.0,
+                    "materialism": -1.0,
+                    "rationalism": 1.5
+                }
+            }
+        }
+    },
+    {
+        "id": "burning_bridge",
+        "title": {
+            "pl": "Płonący most",
+            "en": "Burning Bridge"
+        },
+        "description": {
+            "pl": "Uciekasz przed wrogiem. Drewniany most płonie. Możesz przebiec przez ogień lub szukać drogi na około.",
+            "en": "You flee from enemies. The wooden bridge is burning. You can run through fire or find a way around."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Biegnij przez ogień",
+                    "en": "Run through fire"
+                },
+                "weights": {
+                    "bravery": 2.0,
+                    "altruism": 0.0,
+                    "materialism": 0.0,
+                    "rationalism": -1.5
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Szukaj innej drogi",
+                    "en": "Find another way"
+                },
+                "weights": {
+                    "bravery": -1.5,
+                    "altruism": 0.0,
+                    "materialism": 0.0,
+                    "rationalism": 1.5
+                }
+            }
+        }
+    }
+]

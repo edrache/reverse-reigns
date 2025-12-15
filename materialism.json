@@ -1,0 +1,102 @@
+{
+    "materialism": {
+        "ascetic": {
+            "range": [
+                -100,
+                -80
+            ],
+            "support": {
+                "pl": "Odrzućmy to co zbędne. Mniej znaczy więcej.",
+                "en": "Let's discard the unnecessary. Less is more."
+            },
+            "oppose": {
+                "pl": "To tylko pusta chciwość. Nie potrzebujemy tego.",
+                "en": "It's just empty greed. We don't need this."
+            }
+        },
+        "detached": {
+            "range": [
+                -80,
+                -50
+            ],
+            "support": {
+                "pl": "Dobra materialne nie mają znaczenia. Zostawmy to.",
+                "en": "Material goods don't matter. Let it go."
+            },
+            "oppose": {
+                "pl": "Po co obciążać się kolejnymi rzeczami? To balast.",
+                "en": "Why burden ourselves with more things? It's dead weight."
+            }
+        },
+        "frugal": {
+            "range": [
+                -50,
+                -10
+            ],
+            "support": {
+                "pl": "To oszczędne rozwiązanie. Nie zmarnujemy zasobów.",
+                "en": "It's a frugal solution. We won't waste resources."
+            },
+            "oppose": {
+                "pl": "To rozrzutność. Szkoda na to środków.",
+                "en": "That's wasteful. Not worth the resources."
+            }
+        },
+        "resourceful": {
+            "range": [
+                -10,
+                10
+            ],
+            "support": {
+                "pl": "Wykorzystajmy to, co mamy. To praktyczne podejście.",
+                "en": "Let's use what we have. It's a practical approach."
+            },
+            "oppose": {
+                "pl": "Stosunek zysku do wysiłku jest słaby. Nie opłaca się.",
+                "en": "The gain-to-effort ratio is poor. Not worth it."
+            }
+        },
+        "pragmatic": {
+            "range": [
+                10,
+                50
+            ],
+            "support": {
+                "pl": "To solidna inwestycja. Wyjdziemy na tym na plus.",
+                "en": "That's a solid investment. We'll come out ahead."
+            },
+            "oppose": {
+                "pl": "Nie widzę tutaj konkretnej wartości. Odpuśćmy.",
+                "en": "I don't see tangible value here. Let's pass."
+            }
+        },
+        "greedy": {
+            "range": [
+                50,
+                80
+            ],
+            "support": {
+                "pl": "Bierzmy ile się da! Taka okazja może się nie powtórzyć.",
+                "en": "Let's take all we can! Such a chance might not return."
+            },
+            "oppose": {
+                "pl": "Odejść z pustymi rękami? Nigdy w życiu!",
+                "en": "Walk away empty-handed? Never in my life!"
+            }
+        },
+        "miserly": {
+            "range": [
+                80,
+                100
+            ],
+            "support": {
+                "pl": "To moje! Musimy to zabezpieczyć za wszelką cenę.",
+                "en": "It's mine! We must secure it at all costs."
+            },
+            "oppose": {
+                "pl": "Nie wydam ani grosza, nie oddam ani okrucha!",
+                "en": "I won't spend a penny, I won't give up a crumb!"
+            }
+        }
+    }
+}

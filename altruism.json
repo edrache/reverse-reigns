@@ -1,0 +1,102 @@
+{
+    "altruism": {
+        "vile": {
+            "range": [
+                -100,
+                -80
+            ],
+            "support": {
+                "pl": "Cudze cierpienie mnie nie obchodzi, byle bym ja zyskał.",
+                "en": "I don't care about others' suffering, as long as I gain."
+            },
+            "oppose": {
+                "pl": "Mam im pomóc? Wolne żarty. Niech radzą sobie sami.",
+                "en": "Help them? You must be joking. Let them rot."
+            }
+        },
+        "selfish": {
+            "range": [
+                -80,
+                -50
+            ],
+            "support": {
+                "pl": "To przynosi korzyść mnie, więc w to wchodzę.",
+                "en": "This benefits me, so count me in."
+            },
+            "oppose": {
+                "pl": "Nie widzę w tym zysku dla siebie. Nie jestem zainteresowany.",
+                "en": "I see no profit for myself here. I'm not interested."
+            }
+        },
+        "self_centered": {
+            "range": [
+                -50,
+                -10
+            ],
+            "support": {
+                "pl": "Zgoda, o ile nie będzie mnie to zbyt wiele kosztować.",
+                "en": "Agreed, as long as it doesn't cost me too much."
+            },
+            "oppose": {
+                "pl": "Dlaczego mam poświęcać swój komfort dla kogoś innego?",
+                "en": "Why should I sacrifice my comfort for someone else?"
+            }
+        },
+        "impartial": {
+            "range": [
+                -10,
+                10
+            ],
+            "support": {
+                "pl": "To sprawiedliwy układ. Nikogo nie faworyzuje.",
+                "en": "It's a fair arrangement. It favors no one."
+            },
+            "oppose": {
+                "pl": "To by naruszyło równowagę. Musimy pozostać obiektywni.",
+                "en": "That would disturb the balance. We must remain objective."
+            }
+        },
+        "helpful": {
+            "range": [
+                10,
+                50
+            ],
+            "support": {
+                "pl": "Warto podać pomocną dłoń. To dobra decyzja.",
+                "en": "It's worth lending a hand. That's a good decision."
+            },
+            "oppose": {
+                "pl": "To nie jest w porządku wobec innych. Poszukajmy lepszej drogi.",
+                "en": "That's not fair to others. Let's find a better way."
+            }
+        },
+        "altruistic": {
+            "range": [
+                50,
+                80
+            ],
+            "support": {
+                "pl": "Dobro ogółu jest ważniejsze niż moje. Zróbmy tak.",
+                "en": "The greater good is more important than mine. Let's do it."
+            },
+            "oppose": {
+                "pl": "Nie mogę przejść obojętnie, gdy komuś dzieje się krzywda.",
+                "en": "I cannot turn a blind eye when someone is being harmed."
+            }
+        },
+        "saintly": {
+            "range": [
+                80,
+                100
+            ],
+            "support": {
+                "pl": "Poświęcenie dla innych to najwyższa cnota. Jestem gotów.",
+                "en": "Sacrifice for others is the highest virtue. I am ready."
+            },
+            "oppose": {
+                "pl": "Nie przyłożę ręki do niczego, co niesie cierpienie.",
+                "en": "I will not be party to anything that brings suffering."
+            }
+        }
+    }
+}

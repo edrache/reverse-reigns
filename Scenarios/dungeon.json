@@ -1,0 +1,372 @@
+[
+    {
+        "id": "dungeon_altar",
+        "title": {
+            "pl": "Krwawy Ołtarz",
+            "en": "Bloody Altar"
+        },
+        "description": {
+            "pl": "Znajdujesz ołtarz z misą na ofiary. Inskrypcja głosi: 'Krew za Złoto'. W głębi misy widać już kilka rubinów.",
+            "en": "You find an altar with a sacrificial bowl. The inscription reads: 'Blood for Gold'. Several rubies are already visible inside."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Poświęć własną krew",
+                    "en": "Sacrifice your blood"
+                },
+                "weights": {
+                    "bravery": 1.0,
+                    "altruism": 0.0,
+                    "materialism": 2.0,
+                    "rationalism": -1.5
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Zniszcz ołtarz",
+                    "en": "Destroy the altar"
+                },
+                "weights": {
+                    "bravery": 0.5,
+                    "altruism": 1.0,
+                    "materialism": -2.0,
+                    "rationalism": 0.5
+                }
+            }
+        }
+    },
+    {
+        "id": "injured_adventurer",
+        "title": {
+            "pl": "Ranny Poszukiwacz",
+            "en": "Injured Adventurer"
+        },
+        "description": {
+            "pl": "Pod ścianą leży ranny poszukiwacz przygód. Błaga o eliksir leczenia, ale sam posiada cenny magiczny miecz.",
+            "en": "An injured adventurer lies against the wall. He begs for a healing potion, but he possesses a valuable magic sword."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Ulecz go",
+                    "en": "Heal him"
+                },
+                "weights": {
+                    "bravery": 0.0,
+                    "altruism": 2.0,
+                    "materialism": -1.0,
+                    "rationalism": -0.5
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Zabierz mu miecz",
+                    "en": "Take his sword"
+                },
+                "weights": {
+                    "bravery": -0.5,
+                    "altruism": -2.0,
+                    "materialism": 1.5,
+                    "rationalism": 0.5
+                }
+            }
+        }
+    },
+    {
+        "id": "spider_eggs",
+        "title": {
+            "pl": "Jaja Pająka",
+            "en": "Spider Eggs"
+        },
+        "description": {
+            "pl": "Trafiasz do gniazda gigantycznych pająków. Wszędzie są jaja, które alchemicy skupują za fortunę. Matka może wrócić w każdej chwili.",
+            "en": "You stumble into a giant spider nest. There are eggs everywhere, worth a fortune to alchemists. The mother could return any moment."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Ukradnij jaja",
+                    "en": "Steal the eggs"
+                },
+                "weights": {
+                    "bravery": 1.5,
+                    "altruism": 0.0,
+                    "materialism": 2.0,
+                    "rationalism": -1.0
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Podpal gniazdo",
+                    "en": "Burn the nest"
+                },
+                "weights": {
+                    "bravery": 0.5,
+                    "altruism": 1.0,
+                    "materialism": -1.5,
+                    "rationalism": 1.0
+                }
+            }
+        }
+    },
+    {
+        "id": "crypt_lever",
+        "title": {
+            "pl": "Dźwignia w Truciźnie",
+            "en": "Poisoned Lever"
+        },
+        "description": {
+            "pl": "Dźwignia otwierająca skarbiec jest pokryta żrącym kwasem. Użycie jej gołą ręką spowoduje trwałe obrażenia.",
+            "en": "The lever to the vault is covered in corrosive acid. Pulling it with a bare hand will cause permanent injury."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Pociągnij mimo bólu",
+                    "en": "Pull despite pain"
+                },
+                "weights": {
+                    "bravery": 2.0,
+                    "altruism": 0.0,
+                    "materialism": 1.5,
+                    "rationalism": -2.0
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Zostaw skarbiec",
+                    "en": "Leave the vault"
+                },
+                "weights": {
+                    "bravery": -1.0,
+                    "altruism": 0.0,
+                    "materialism": -1.0,
+                    "rationalism": 1.5
+                }
+            }
+        }
+    },
+    {
+        "id": "ghostly_plea",
+        "title": {
+            "pl": "Prośba Ducha",
+            "en": "Ghostly Plea"
+        },
+        "description": {
+            "pl": "Duch dawnego rycerza blokuje przejście. Prosi, byś odniósł jego kości do rodzinnego grobowca na powierzchni.",
+            "en": "A ghost of an old knight blocks the way. He asks you to take his bones to his family tomb on the surface."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Zgódź się pomóc",
+                    "en": "Agree to help"
+                },
+                "weights": {
+                    "bravery": 0.5,
+                    "altruism": 2.0,
+                    "materialism": -1.0,
+                    "rationalism": -0.5
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Przebij się siłą",
+                    "en": "Force your way through"
+                },
+                "weights": {
+                    "bravery": 1.0,
+                    "altruism": -1.5,
+                    "materialism": 0.0,
+                    "rationalism": 0.5
+                }
+            }
+        }
+    },
+    {
+        "id": "unstable_bridge",
+        "title": {
+            "pl": "Skruszały Most",
+            "en": "Crumbling Bridge"
+        },
+        "description": {
+            "pl": "Kamienny most nad przepaścią ledwo się trzyma. Na drugim brzegu widać zbrojownię, ale most może runąć pod ciężarem.",
+            "en": "A stone bridge over a chasm is barely holding up. An armory is visible on the other side, but the bridge might collapse."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Zaryzykuj przejście",
+                    "en": "Risk crossing"
+                },
+                "weights": {
+                    "bravery": 1.5,
+                    "altruism": 0.0,
+                    "materialism": 1.0,
+                    "rationalism": -1.0
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Zawróć",
+                    "en": "Turn back"
+                },
+                "weights": {
+                    "bravery": -1.0,
+                    "altruism": 0.0,
+                    "materialism": 0.0,
+                    "rationalism": 1.5
+                }
+            }
+        }
+    },
+    {
+        "id": "dark_ritual",
+        "title": {
+            "pl": "Mroczny Rytuał",
+            "en": "Dark Ritual"
+        },
+        "description": {
+            "pl": "Widzisz grupę kultystów przygotowujących się do przyzwania demona. Są zajęci i cię nie widzą.",
+            "en": "You see a group of cultists preparing to summon a demon. They are busy and haven't seen you."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Zaatakuj z zaskoczenia",
+                    "en": "Ambush them"
+                },
+                "weights": {
+                    "bravery": 2.0,
+                    "altruism": 1.0,
+                    "materialism": 0.0,
+                    "rationalism": -0.5
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Przemknij obok",
+                    "en": "Sneak past"
+                },
+                "weights": {
+                    "bravery": -1.0,
+                    "altruism": -1.0,
+                    "materialism": 0.0,
+                    "rationalism": 1.5
+                }
+            }
+        }
+    },
+    {
+        "id": "strange_mushroom",
+        "title": {
+            "pl": "Dziwny Grzyb",
+            "en": "Strange Mushroom"
+        },
+        "description": {
+            "pl": "Znajdujesz świecącego, pulsującego grzyba. Wygląda magicznie, ale może być trujący.",
+            "en": "You find a glowing, pulsating mushroom. It looks magical, but could be poisonous."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Zjedz go",
+                    "en": "Eat it"
+                },
+                "weights": {
+                    "bravery": 1.0,
+                    "altruism": 0.0,
+                    "materialism": 0.0,
+                    "rationalism": -2.0
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Zbadaj próbkę",
+                    "en": "Analyze sample"
+                },
+                "weights": {
+                    "bravery": -0.5,
+                    "altruism": 0.0,
+                    "materialism": 0.5,
+                    "rationalism": 2.0
+                }
+            }
+        }
+    },
+    {
+        "id": "trapped_chest",
+        "title": {
+            "pl": "Podejrzana Skrzynia",
+            "en": "Suspicious Chest"
+        },
+        "description": {
+            "pl": "Skrzynia jest niezamknięta, ale słyszysz tykanie mechanizmu wewnątrz. To może być bomba lub pułapka.",
+            "en": "The chest is unlocked, but you hear a ticking mechanism inside. It could be a bomb or a trap."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Otwórz szybko",
+                    "en": "Open quickly"
+                },
+                "weights": {
+                    "bravery": 1.5,
+                    "altruism": 0.0,
+                    "materialism": 2.0,
+                    "rationalism": -1.5
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Zostaw w spokoju",
+                    "en": "Leave it alone"
+                },
+                "weights": {
+                    "bravery": -0.5,
+                    "altruism": 0.0,
+                    "materialism": -1.0,
+                    "rationalism": 1.5
+                }
+            }
+        }
+    },
+    {
+        "id": "goblin_merchant",
+        "title": {
+            "pl": "Gobliński Handlarz",
+            "en": "Goblin Merchant"
+        },
+        "description": {
+            "pl": "Spotykasz goblina, który nie atakuje. Chce sprzedać klucz do skrótu, ale żąda za niego wszystkich twoich racji żywnościowych.",
+            "en": "You meet a goblin who doesn't attack. He wants to sell a key to a shortcut, but demands all your food rations."
+        },
+        "options": {
+            "a": {
+                "name": {
+                    "pl": "Dobij targu",
+                    "en": "Make the deal"
+                },
+                "weights": {
+                    "bravery": 0.0,
+                    "altruism": 0.0,
+                    "materialism": -1.0,
+                    "rationalism": 1.0
+                }
+            },
+            "b": {
+                "name": {
+                    "pl": "Zabij go i weź klucz",
+                    "en": "Kill him and take key"
+                },
+                "weights": {
+                    "bravery": 0.5,
+                    "altruism": -2.0,
+                    "materialism": 1.0,
+                    "rationalism": 0.0
+                }
+            }
+        }
+    }
+]

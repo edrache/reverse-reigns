@@ -1,0 +1,382 @@
+{
+    "npcs": [
+        {
+            "id": "npc_bandit_leader",
+            "type": "npc",
+            "tag": "adversary",
+            "title": {
+                "pl": "Przywódca Bandytów",
+                "en": "Bandit Leader"
+            },
+            "description": {
+                "pl": "Blizna przecina jego twarz. Trzyma dłoń na rękojeści miecza. Blokuje drogę i żąda 'podatku od życia'.",
+                "en": "A scar runs across his face. He keeps a hand on his sword hilt. He blocks the way demanding a 'life tax'."
+            },
+            "global_modifiers": {
+                "comment": "Global modifiers applied when this card is present (Main or Add-on).",
+                "weights": {
+                    "bravery": 1.0,
+                    "altruism": -1.0
+                }
+            },
+            "main_encounter": {
+                "comment": "Active only when this card is the Main Encounter.",
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Wyzwij go na pojedynek",
+                            "en": "Challenge him to a duel"
+                        },
+                        "description": {
+                            "pl": "Jeden na jednego. Honorowo, ale ryzykownie.",
+                            "en": "One on one. Honorable, but risky."
+                        },
+                        "weights": {
+                            "bravery": 2.0,
+                            "rationalism": -1.0,
+                            "altruism": -0.5,
+                            "materialism": 0.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Zapłać haracz",
+                            "en": "Pay the tribute"
+                        },
+                        "description": {
+                            "pl": "Rzuć mu sakiewkę złota i przejdź bezpiecznie.",
+                            "en": "Toss him a purse of gold and pass safely."
+                        },
+                        "weights": {
+                            "bravery": -1.5,
+                            "rationalism": 1.5,
+                            "altruism": 0.0,
+                            "materialism": -2.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "npc_royal_guard",
+            "type": "npc",
+            "tag": "authority",
+            "title": {
+                "pl": "Królewski Strażnik",
+                "en": "Royal Guard"
+            },
+            "description": {
+                "pl": "Lśniąca zbroja i nieustępliwe spojrzenie. Żąda okazania dokumentów i przeszukania ekwipunku.",
+                "en": "Shining armor and an unyielding gaze. He demands to see your papers and search your gear."
+            },
+            "global_modifiers": {
+                "weights": {
+                    "rationalism": 0.5,
+                    "bravery": -0.5
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Poddaj się kontroli",
+                            "en": "Submit to inspection"
+                        },
+                        "description": {
+                            "pl": "Nie masz nic do ukrycia. Postępuj zgodnie z prawem.",
+                            "en": "You have nothing to hide. Follow the law."
+                        },
+                        "weights": {
+                            "bravery": -1.0,
+                            "rationalism": 1.5,
+                            "altruism": 0.5,
+                            "materialism": 0.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Zaatakuj z zaskoczenia",
+                            "en": "Ambush him"
+                        },
+                        "description": {
+                            "pl": "Nikt nie będzie ci rozkazywał. Uderz zanim on dobędzie broni.",
+                            "en": "No one tells you what to do. Strike before he draws his weapon."
+                        },
+                        "weights": {
+                            "bravery": 2.0,
+                            "rationalism": -2.0,
+                            "altruism": -1.0,
+                            "materialism": 0.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "npc_lost_child",
+            "type": "npc",
+            "tag": "victim",
+            "title": {
+                "pl": "Zgubione Dziecko",
+                "en": "Lost Child"
+            },
+            "description": {
+                "pl": "Płacze cicho w kącie. Jest bezbronne, głodne i spowalnia marsz.",
+                "en": "Crying quietly in the corner. It is defenseless, hungry, and slows down the march."
+            },
+            "global_modifiers": {
+                "weights": {
+                    "altruism": 1.5
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Przygarnij i nakarm",
+                            "en": "Adopt and feed"
+                        },
+                        "description": {
+                            "pl": "Nie zostawisz go tutaj. Podziel się zapasami.",
+                            "en": "You won't leave it here. Share your supplies."
+                        },
+                        "weights": {
+                            "bravery": 0.0,
+                            "rationalism": -0.5,
+                            "altruism": 2.0,
+                            "materialism": -1.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Zostaw je",
+                            "en": "Leave it"
+                        },
+                        "description": {
+                            "pl": "To brutalny świat. Nie jesteś niańką.",
+                            "en": "It's a brutal world. You are not a babysitter."
+                        },
+                        "weights": {
+                            "bravery": 0.0,
+                            "rationalism": 0.5,
+                            "altruism": -2.5,
+                            "materialism": 0.5
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "npc_wandering_peddler",
+            "type": "npc",
+            "tag": "merchant",
+            "title": {
+                "pl": "Wędrowny Domokrążca",
+                "en": "Wandering Peddler"
+            },
+            "description": {
+                "pl": "Ma plecak pełen dziwnych przedmiotów. Oferuje rzadki artefakt w 'okazyjnej' cenie.",
+                "en": "Has a backpack full of strange items. Offers a rare artifact at a 'bargain' price."
+            },
+            "global_modifiers": {
+                "weights": {
+                    "materialism": 0.5,
+                    "rationalism": 0.5
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Kup tajemniczy przedmiot",
+                            "en": "Buy mystery item"
+                        },
+                        "description": {
+                            "pl": "Ryzyko może się opłacić. Płacisz bez targowania.",
+                            "en": "The risk might pay off. You pay without haggling."
+                        },
+                        "weights": {
+                            "bravery": 0.5,
+                            "rationalism": -1.0,
+                            "altruism": 0.0,
+                            "materialism": 1.5
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Ograb go",
+                            "en": "Rob him"
+                        },
+                        "description": {
+                            "pl": "Po co płacić, skoro można wziąć? Jest słaby.",
+                            "en": "Why pay when you can take? He is weak."
+                        },
+                        "weights": {
+                            "bravery": 1.0,
+                            "rationalism": 0.5,
+                            "altruism": -2.0,
+                            "materialism": 2.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "npc_shady_informant",
+            "type": "npc",
+            "tag": "scoundrel",
+            "title": {
+                "pl": "Podejrzany Informator",
+                "en": "Shady Informant"
+            },
+            "description": {
+                "pl": "Unika twojego wzroku. Twierdzi, że zna sekretne przejście, ale chce zapłaty z góry.",
+                "en": "Avoids your gaze. Claims to know a secret passage, but wants payment upfront."
+            },
+            "global_modifiers": {
+                "weights": {
+                    "rationalism": 0.5,
+                    "altruism": -0.5
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Zaufaj i zapłać",
+                            "en": "Trust and pay"
+                        },
+                        "description": {
+                            "pl": "Wiedza to potęga. Warto zaryzykować złoto.",
+                            "en": "Knowledge is power. Worth risking the gold."
+                        },
+                        "weights": {
+                            "bravery": -0.5,
+                            "rationalism": -0.5,
+                            "altruism": 0.5,
+                            "materialism": -1.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Zastrasz go",
+                            "en": "Intimidate him"
+                        },
+                        "description": {
+                            "pl": "Niech gada albo pożałuje. Strach rozwiąże mu język.",
+                            "en": "Talk or regret it. Fear will loosen his tongue."
+                        },
+                        "weights": {
+                            "bravery": 1.5,
+                            "rationalism": 0.0,
+                            "altruism": -1.5,
+                            "materialism": 0.5
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "npc_blind_prophet",
+            "type": "npc",
+            "tag": "mystic",
+            "title": {
+                "pl": "Ślepy Prorok",
+                "en": "Blind Prophet"
+            },
+            "description": {
+                "pl": "Mówi zagadkami o klątwie ciążącej na tym miejscu. Chce pobłogosławić twój oręż.",
+                "en": "Speaks in riddles about a curse on this place. Wants to bless your weapon."
+            },
+            "global_modifiers": {
+                "weights": {
+                    "rationalism": -1.0
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Przyjmij błogosławieństwo",
+                            "en": "Accept blessing"
+                        },
+                        "description": {
+                            "pl": "W obliczu mroku każda pomoc się przyda, nawet magiczna.",
+                            "en": "In the face of darkness, any help is useful, even magical."
+                        },
+                        "weights": {
+                            "bravery": -0.5,
+                            "rationalism": -2.0,
+                            "altruism": 0.0,
+                            "materialism": 0.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Przepędź szaleńca",
+                            "en": "Drive the madman away"
+                        },
+                        "description": {
+                            "pl": "Nie masz czasu na zabobony. To tylko bełkot.",
+                            "en": "No time for superstition. It's just gibberish."
+                        },
+                        "weights": {
+                            "bravery": 0.5,
+                            "rationalism": 1.5,
+                            "altruism": -1.0,
+                            "materialism": 0.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG Simulator - Card Game</title>
+    <link rel="stylesheet" href="css/game.css?v=11">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #e74c3c;
+            --card-width: 160px;
+            --card-height: 240px;
+            --bg: #bdc3c7;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* --- TOP STATS BAR --- */
+        #stats-bar {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            /* Styled in CSS file */
+        }
+
+        /* --- PLAY AREA --- */
+        #play-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            /* Vertical layout */
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .slot-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Mini Slots */
+        .card-slot.mini-slot {
+            width: 140px;
+            height: 100px;
+            border: 3px dashed rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .card-slot.highlight {
+            border-color: var(--accent);
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .slot-label {
+            font-family: 'Cinzel', serif;
+            color: #555;
+            font-weight: bold;
+        }
+
+        /* Option Panels */
+        .option-panel {
+            width: 200px;
+            min-height: 200px;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .option-panel.left {
+            border-left: 5px solid #2ecc71;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(255, 255, 255, 0.8));
+        }
+
+        .option-panel.right {
+            border-right: 5px solid #e74c3c;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(231, 76, 60, 0.1));
+        }
+
+        .opt-label {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+        }
+
+        .option-panel.left .opt-label {
+            color: #27ae60;
+        }
+
+        .option-panel.right .opt-label {
+            color: #c0392b;
+        }
+
+        .opt-content {
+            font-size: 0.95em;
+            color: #34495e;
+            font-style: italic;
+        }
+
+
+        /* --- DECISION AREA --- */
+        #decision-panel {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            min-height: 80px;
+            /* Reserve space */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-action {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            box-shadow: 0 4px 0 #1a252f;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #1a252f;
+        }
+
+        .btn-action:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #1a252f;
+        }
+
+        /* --- HAND --- */
+        #hand-area {
+            height: 280px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+        }
+
+        /* --- CARD STYLE (Quick Mockup defined in CSS file mostly) --- */
+        .game-card {
+            width: var(--card-width);
+            height: var(--card-height);
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            box-sizing: border-box;
+            cursor: grab;
+            display: flex;
+            flex-direction: column;
+            user-select: none;
+            transition: transform 0.2s;
+            font-size: 0.9em;
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-20px);
+            z-index: 10;
+        }
+
+        .game-card.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .card-title {
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+            color: var(--primary);
+        }
+
+        .card-tag {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            text-align: center;
+            background: #eee;
+            border-radius: 4px;
+            padding: 2px;
+            margin-bottom: 5px;
+            color: #777;
+        }
+
+        .card-desc {
+            font-size: 0.8em;
+            color: #555;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .card-remove-btn {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #c0392b;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: none;
+            font-weight: bold;
+            z-index: 20;
+        }
+
+        .game-card:hover .card-remove-btn {
+            display: block;
+        }
+
+        /* --- OVERLAYS --- */
+        #comic-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            /* flex removed in CSS */
+        }
+
+        #log-overlay {
+            position: fixed;
+            top: 50px;
+            right: 20px;
+            width: 300px;
+            background: rgba(44, 62, 80, 0.9);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            font-size: 0.8em;
+            max-height: 80vh;
+            overflow-y: auto;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Stats Bar -->
+    <div id="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value" id="s-bravery">...</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="s-altruism">...</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="s-materialism">...</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="s-rationalism">...</div>
+        </div>
+        <div style="border-left:1px solid #ddd; margin:0 10px;"></div>
+        <button onclick="randomizeStats()">🎲 Reroll</button>
+    </div>
+
+    <!-- Play Area -->
+    <div id="play-area" style="flex-direction: column; gap: 20px;">
+
+        <!-- ROW 1: Modifiers (Mini) -->
+        <div style="display:flex; justify-content:center; gap: 40px; width:100%;">
+            <div class="slot-container">
+                <div class="slot-label" style="font-size:0.9em;">Modifier I</div>
+                <div class="card-slot mini-slot" data-type="modifier" id="slot-mod-1">
+                    <span style="color:#bdc3c7; font-size:0.8em;">Mod I</span>
+                </div>
+            </div>
+            <div class="slot-container">
+                <div class="slot-label" style="font-size:0.9em;">Modifier II</div>
+                <div class="card-slot mini-slot" data-type="modifier" id="slot-mod-2">
+                    <span style="color:#bdc3c7; font-size:0.8em;">Mod II</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 2: Options & Main Encounter -->
+        <div style="display:flex; justify-content: center; align-items: center; gap: 20px; width:100%;">
+
+            <!-- Option A Panel -->
+            <div id="opt-a-display" class="option-panel left">
+                <div class="opt-label">Option A</div>
+                <div class="opt-content">Draft your destination...</div>
+            </div>
+
+            <!-- Main Slot -->
+            <div class="slot-container">
+                <div class="slot-label" style="font-size:1.5em; color:var(--primary);">Main Encounter</div>
+                <div class="card-slot" style="width:220px; height:320px; border-color:var(--primary);" data-type="main"
+                    id="slot-main">
+                    <span style="color:#bdc3c7;">Drop Scenario Here</span>
+                </div>
+            </div>
+
+            <!-- Option B Panel -->
+            <div id="opt-b-display" class="option-panel right">
+                <div class="opt-label">Option B</div>
+                <div class="opt-content">...to see the path.</div>
+            </div>
+
+        </div>
+
+        <!-- Inline Decision / Result Panel -->
+        <div id="decision-panel">
+            <button id="btn-decide" class="btn-action" onclick="playTurn()">Decide!</button>
+
+            <!-- Hidden by default -->
+            <div id="result-panel" class="inline-result" style="display:none;">
+                <div class="result-content">
+                    <span class="decision-label">Result:</span>
+                    <span id="result-text-inline" class="decision-value">...</span>
+                </div>
+                <button class="btn-next small" onclick="nextTurn()">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hand -->
+    <div id="hand-area">
+        <!-- Cards injected here -->
+    </div>
+
+    <!-- Overlays -->
+    <div id="comic-overlay"></div>
+    <div id="log-overlay"></div>
+
+    <script src="js/simulator-logic.js?v=11"></script>
+    <script src="js/game.js?v=11"></script>
+</body>
+
+</html>

@@ -1,0 +1,384 @@
+{
+    "items": [
+        {
+            "id": "item_bag_of_gems",
+            "type": "item",
+            "tag": "wealth",
+            "title": {
+                "pl": "Worek Klejnotów",
+                "en": "Bag of Gems"
+            },
+            "description": {
+                "pl": "Ciężki worek wypełniony rubinami, leżący na zakurzonym piedestale. Wygląda zbyt pięknie, by było prawdziwe.",
+                "en": "A heavy bag filled with rubies, resting on a dusty pedestal. It looks too good to be true."
+            },
+            "global_modifiers": {
+                "comment": "Wealth triggers greed (Materialism) and overrides caution.",
+                "weights": {
+                    "materialism": 1.5,
+                    "bravery": 0.5
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Zabierz worek",
+                            "en": "Take the bag"
+                        },
+                        "description": {
+                            "pl": "Jesteś bogaty! Kogo obchodzą ewentualne pułapki?",
+                            "en": "You're rich! Who cares about potential traps?"
+                        },
+                        "weights": {
+                            "bravery": 1.0,
+                            "rationalism": -1.0,
+                            "altruism": 0.0,
+                            "materialism": 2.5
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Zostaw to",
+                            "en": "Leave it"
+                        },
+                        "description": {
+                            "pl": "To oczywista przynęta. Nie jesteś głupi.",
+                            "en": "It's an obvious bait. You are not stupid."
+                        },
+                        "weights": {
+                            "bravery": -0.5,
+                            "rationalism": 1.5,
+                            "altruism": 0.0,
+                            "materialism": -2.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "item_rusty_axe",
+            "type": "item",
+            "tag": "armament",
+            "title": {
+                "pl": "Zardzewiały Topór",
+                "en": "Rusty Axe"
+            },
+            "description": {
+                "pl": "Stary, wyszczerbiony topór wbity w pieniek. Wciąż może ciąć kości.",
+                "en": "An old, chipped axe stuck in a stump. Still capable of cleaving bone."
+            },
+            "global_modifiers": {
+                "comment": "Holding a weapon boosts Bravery.",
+                "weights": {
+                    "bravery": 0.5
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Weź jako broń",
+                            "en": "Take as weapon"
+                        },
+                        "description": {
+                            "pl": "Lepsze to niż gołe pięści. Poczujesz się pewniej.",
+                            "en": "Better than bare fists. You'll feel more confident."
+                        },
+                        "weights": {
+                            "bravery": 1.0,
+                            "rationalism": 0.5,
+                            "altruism": 0.0,
+                            "materialism": -0.5
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Zostaw ten złom",
+                            "en": "Leave this scrap"
+                        },
+                        "description": {
+                            "pl": "Tylko cię spowolni. To śmieć, nie broń.",
+                            "en": "It will only slow you down. It's trash, not a weapon."
+                        },
+                        "weights": {
+                            "bravery": 0.0,
+                            "rationalism": 0.0,
+                            "altruism": 0.0,
+                            "materialism": 1.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "item_moldy_bread",
+            "type": "item",
+            "tag": "sustenance",
+            "title": {
+                "pl": "Spleśniały Chleb",
+                "en": "Moldy Bread"
+            },
+            "description": {
+                "pl": "Twardy jak kamień i miejscami zielony. Ale to kalorie.",
+                "en": "Rock hard and green in places. But it's calories."
+            },
+            "global_modifiers": {
+                "comment": "Low quality item repels Materialists.",
+                "weights": {
+                    "materialism": -0.5
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Zjedz to",
+                            "en": "Eat it"
+                        },
+                        "description": {
+                            "pl": "Głód jest gorszy niż smród. Przetrwanie to priorytet.",
+                            "en": "Hunger is worse than the stench. Survival is priority."
+                        },
+                        "weights": {
+                            "bravery": 0.5,
+                            "rationalism": 1.0,
+                            "altruism": 0.0,
+                            "materialism": -2.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Wyrzuć to",
+                            "en": "Throw it away"
+                        },
+                        "description": {
+                            "pl": "Masz swoje standardy. Nie jesteś szczurem.",
+                            "en": "You have standards. You are not a rat."
+                        },
+                        "weights": {
+                            "bravery": 0.0,
+                            "rationalism": -1.0,
+                            "altruism": 0.0,
+                            "materialism": 1.5
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "item_glowing_orb",
+            "type": "item",
+            "tag": "artifact",
+            "title": {
+                "pl": "Świecąca Kula",
+                "en": "Glowing Orb"
+            },
+            "description": {
+                "pl": "Pulsuje nieznaną energią. Szepcze do ciebie w zapomnianym języku.",
+                "en": "Pulsates with unknown energy. Whispers to you in a forgotten tongue."
+            },
+            "global_modifiers": {
+                "comment": "Artifacts confuse logic (Rationalism) and tempt greed (Materialism).",
+                "weights": {
+                    "materialism": 0.5,
+                    "rationalism": -0.5
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Dotknij kuli",
+                            "en": "Touch the orb"
+                        },
+                        "description": {
+                            "pl": "Ciekawość jest silniejsza od rozsądku. Chcesz tej mocy.",
+                            "en": "Curiosity is stronger than reason. You want this power."
+                        },
+                        "weights": {
+                            "bravery": 1.0,
+                            "rationalism": -2.0,
+                            "altruism": 0.0,
+                            "materialism": 1.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Rozbij ją",
+                            "en": "Smash it"
+                        },
+                        "description": {
+                            "pl": "To niebezpieczna magia. Musisz ją zniszczyć.",
+                            "en": "This is dangerous magic. You must destroy it."
+                        },
+                        "weights": {
+                            "bravery": 0.5,
+                            "rationalism": 1.0,
+                            "altruism": 0.5,
+                            "materialism": -1.5
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "item_skeleton_key",
+            "type": "item",
+            "tag": "key",
+            "title": {
+                "pl": "Wytrych",
+                "en": "Skeleton Key"
+            },
+            "description": {
+                "pl": "Uniwersalny klucz, który może otworzyć wiele drzwi... lub skrzyń.",
+                "en": "A master key that can open many doors... or chests."
+            },
+            "global_modifiers": {
+                "comment": "Keys offer logical solutions.",
+                "weights": {
+                    "rationalism": 1.0
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Schowaj na później",
+                            "en": "Keep for later"
+                        },
+                        "description": {
+                            "pl": "Przyda się w odpowiednim momencie. Logiczny wybór.",
+                            "en": "Will be useful at the right moment. Logical choice."
+                        },
+                        "weights": {
+                            "bravery": -0.5,
+                            "rationalism": 1.5,
+                            "altruism": 0.0,
+                            "materialism": 0.5
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Otwórz pobliskie drzwi",
+                            "en": "Open nearby door"
+                        },
+                        "description": {
+                            "pl": "Nie możesz czekać. Chcesz zobaczyć co tu ukryto teraz.",
+                            "en": "You can't wait. You want to see what's hidden here now."
+                        },
+                        "weights": {
+                            "bravery": 1.0,
+                            "rationalism": -1.0,
+                            "altruism": 0.0,
+                            "materialism": 1.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "item_broken_pottery",
+            "type": "item",
+            "tag": "trash",
+            "title": {
+                "pl": "Rozbita Ceramika",
+                "en": "Broken Pottery"
+            },
+            "description": {
+                "pl": "Sterta skorup. Kiedyś mogła to być cenna waza.",
+                "en": "A pile of shards. It might have been a valuable vase once."
+            },
+            "global_modifiers": {
+                "comment": "Trash repels Materialists.",
+                "weights": {
+                    "materialism": -1.0
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Przeszukaj skorupy",
+                            "en": "Sift through shards"
+                        },
+                        "description": {
+                            "pl": "Może coś cennego ukryto w środku? Wymaga cierpliwości.",
+                            "en": "Maybe something valuable is hidden inside? Requires patience."
+                        },
+                        "weights": {
+                            "bravery": 0.0,
+                            "rationalism": 0.5,
+                            "altruism": 0.0,
+                            "materialism": 1.5
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Kopnij i idź dalej",
+                            "en": "Kick and move on"
+                        },
+                        "description": {
+                            "pl": "Szkoda czasu na śmieci. Ruszajmy.",
+                            "en": "Waste of time on trash. Let's move."
+                        },
+                        "weights": {
+                            "bravery": 0.0,
+                            "rationalism": 0.5,
+                            "altruism": 0.0,
+                            "materialism": -0.5
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

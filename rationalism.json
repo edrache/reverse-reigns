@@ -1,0 +1,102 @@
+{
+    "rationalism": {
+        "mad": {
+            "range": [
+                -100,
+                -80
+            ],
+            "support": {
+                "pl": "Tak! Niech zapanuje chaos! Zróbmy coś szalonego!",
+                "en": "Yes! Let chaos reign! Let's do something crazy!"
+            },
+            "oppose": {
+                "pl": "Nuda! To zbyt przewidywalne! Nie chcę!",
+                "en": "Boring! Too predictable! I refuse!"
+            }
+        },
+        "impulsive": {
+            "range": [
+                -80,
+                -50
+            ],
+            "support": {
+                "pl": "Nie ma czasu na myślenie! Działajmy teraz!",
+                "en": "No time to think! Let's act now!"
+            },
+            "oppose": {
+                "pl": "Za dużo gadania, za mało akcji. Szkoda czasu.",
+                "en": "Too much talk, not enough action. Waste of time."
+            }
+        },
+        "emotional": {
+            "range": [
+                -50,
+                -10
+            ],
+            "support": {
+                "pl": "Czuję w sercu, że to właściwa droga.",
+                "en": "I feel in my heart this is the right way."
+            },
+            "oppose": {
+                "pl": "Mam co do tego złe przeczucia. To nie pasuje.",
+                "en": "I have a bad feeling about this. It feels wrong."
+            }
+        },
+        "lucid": {
+            "range": [
+                -10,
+                10
+            ],
+            "support": {
+                "pl": "Patrzę na to trzeźwym okiem. To ma sens.",
+                "en": "I'm looking at this clearly. It makes sense."
+            },
+            "oppose": {
+                "pl": "To zniekształca rzeczywistość. Nie dajmy się zwariować.",
+                "en": "This distorts reality. Let's not get crazy."
+            }
+        },
+        "rational": {
+            "range": [
+                10,
+                50
+            ],
+            "support": {
+                "pl": "Rozsądek podpowiada, że to najlepsze wyjście.",
+                "en": "Reason suggests this is the best outcome."
+            },
+            "oppose": {
+                "pl": "To po prostu głupie. Zastanówmy się jeszcze raz.",
+                "en": "That's just foolish. Let's think it through again."
+            }
+        },
+        "logical": {
+            "range": [
+                50,
+                80
+            ],
+            "support": {
+                "pl": "Analiza faktów wskazuje na to rozwiązanie. Wykonajmy je.",
+                "en": "Analysis of facts points to this solution. Let's execute."
+            },
+            "oppose": {
+                "pl": "W tej logice jest błąd. To nie może się udać.",
+                "en": "There is a flaw in this logic. It cannot work."
+            }
+        },
+        "calculating": {
+            "range": [
+                80,
+                100
+            ],
+            "support": {
+                "pl": "Prawdopodobieństwo sukcesu jest optymalne. Zatwierdzam.",
+                "en": "The probability of success is optimal. Approved."
+            },
+            "oppose": {
+                "pl": "Kalkulacja strat jest niekorzystna. Odmawiam.",
+                "en": "The loss calculation is unfavorable. I refuse."
+            }
+        }
+    }
+}

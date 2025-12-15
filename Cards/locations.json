@@ -1,0 +1,386 @@
+{
+    "locations": [
+        {
+            "id": "loc_safe_camp",
+            "type": "location",
+            "tag": "sanctuary",
+            "title": {
+                "pl": "Bezpieczny Obóz",
+                "en": "Safe Camp"
+            },
+            "description": {
+                "pl": "Ciepłe ognisko i solidne barykady. Można tu chwilę odetchnąć i zregenerować siły.",
+                "en": "A warm fire and solid barricades. A place to catch your breath and recover."
+            },
+            "global_modifiers": {
+                "comment": "Sanctuary reduces Bravery (calm) and boosts Rationalism (time to think).",
+                "weights": {
+                    "bravery": -0.5,
+                    "rationalism": 0.5
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Odpocznij i zjedz",
+                            "en": "Rest and eat"
+                        },
+                        "description": {
+                            "pl": "Spokojny posiłek ukoi nerwy, ale zużyje zapasy.",
+                            "en": "A quiet meal will soothe nerves but consume supplies."
+                        },
+                        "weights": {
+                            "bravery": -1.0,
+                            "rationalism": 1.0,
+                            "altruism": 0.0,
+                            "materialism": -0.5
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Wartuj całą noc",
+                            "en": "Keep watch all night"
+                        },
+                        "description": {
+                            "pl": "Nie ufasz ciszy. Będziesz czuwać z bronią w ręku.",
+                            "en": "You don't trust the silence. You will watch with weapon in hand."
+                        },
+                        "weights": {
+                            "bravery": 1.5,
+                            "rationalism": -0.5,
+                            "altruism": 0.0,
+                            "materialism": 0.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "loc_spider_nest",
+            "type": "location",
+            "tag": "peril",
+            "title": {
+                "pl": "Gniazdo Pająków",
+                "en": "Spider Nest"
+            },
+            "description": {
+                "pl": "Lepkie sieci pokrywają ściany. W kokonach widać zarysy poprzednich śmiałków.",
+                "en": "Sticky webs cover the walls. You can see outlines of previous adventurers in the cocoons."
+            },
+            "global_modifiers": {
+                "comment": "Peril increases stress for Cowards (need Bravery).",
+                "weights": {
+                    "bravery": 1.0
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Przeszukaj kokony",
+                            "en": "Search cocoons"
+                        },
+                        "description": {
+                            "pl": "Obrzydliwe, ale mogą mieć przy sobie złoto.",
+                            "en": "Disgusting, but they might have gold on them."
+                        },
+                        "weights": {
+                            "bravery": 1.5,
+                            "rationalism": -0.5,
+                            "altruism": 0.0,
+                            "materialism": 2.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Spal to wszystko",
+                            "en": "Burn it all"
+                        },
+                        "description": {
+                            "pl": "Ogień oczyści to miejsce. Bezpieczniej nie ryzykować.",
+                            "en": "Fire will cleanse this place. Safer not to risk it."
+                        },
+                        "weights": {
+                            "bravery": 0.5,
+                            "rationalism": 1.0,
+                            "altruism": 0.5,
+                            "materialism": -1.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "loc_dragon_treasury",
+            "type": "location",
+            "tag": "hoard",
+            "title": {
+                "pl": "Skarbiec Smoka",
+                "en": "Dragon's Treasury"
+            },
+            "description": {
+                "pl": "Góry złota sięgające sufitu. Właściciela nie widać, ale czuć siarkę.",
+                "en": "Mountains of gold reaching the ceiling. The owner is unseen, but you smell sulfur."
+            },
+            "global_modifiers": {
+                "comment": "Hoard boosts Greed.",
+                "weights": {
+                    "materialism": 1.0
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Wypełnij kieszenie",
+                            "en": "Fill your pockets"
+                        },
+                        "description": {
+                            "pl": "Taka okazja się nie powtórzy. Bierzesz ile uniesiesz.",
+                            "en": "This chance won't come again. Take as much as you can carry."
+                        },
+                        "weights": {
+                            "bravery": 1.0,
+                            "rationalism": -1.5,
+                            "altruism": 0.0,
+                            "materialism": 2.5
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Wycofaj się po cichu",
+                            "en": "Retreat quietly"
+                        },
+                        "description": {
+                            "pl": "Życie jest cenniejsze od złota. Nie budź bestii.",
+                            "en": "Life is more precious than gold. Do not wake the beast."
+                        },
+                        "weights": {
+                            "bravery": -0.5,
+                            "rationalism": 1.5,
+                            "altruism": 0.0,
+                            "materialism": -2.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "loc_alchemist_lab",
+            "type": "location",
+            "tag": "arcane",
+            "title": {
+                "pl": "Laboratorium Alchemika",
+                "en": "Alchemist's Lab"
+            },
+            "description": {
+                "pl": "Na stole stoi dymiąca mikstura. Notatki sugerują, że daje nadludzką siłę.",
+                "en": "A smoking potion sits on the table. Notes suggest it grants superhuman strength."
+            },
+            "global_modifiers": {
+                "comment": "Arcane boosts Rationalism but lowers Bravery (fear of unknown).",
+                "weights": {
+                    "rationalism": 1.0,
+                    "bravery": -0.5
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Wypij miksturę",
+                            "en": "Drink the potion"
+                        },
+                        "description": {
+                            "pl": "Chcesz tej mocy. Natychmiast.",
+                            "en": "You want that power. Now."
+                        },
+                        "weights": {
+                            "bravery": 1.0,
+                            "rationalism": -2.0,
+                            "altruism": 0.0,
+                            "materialism": 1.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Zbadaj składniki",
+                            "en": "Analyze ingredients"
+                        },
+                        "description": {
+                            "pl": "Lepiej zrozumieć, co to jest, zanim to ruszysz.",
+                            "en": "Better understand what it is before you touch it."
+                        },
+                        "weights": {
+                            "bravery": -0.5,
+                            "rationalism": 2.0,
+                            "altruism": 0.0,
+                            "materialism": 0.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "loc_bustling_tavern",
+            "type": "location",
+            "tag": "social",
+            "title": {
+                "pl": "Gwarnia Karczma",
+                "en": "Bustling Tavern"
+            },
+            "description": {
+                "pl": "Tłum ludzi. Ktoś wznosi toast na twoją cześć, oczekując, że postawisz kolejkę.",
+                "en": "A crowd of people. Someone proposes a toast in your honor, expecting you to buy a round."
+            },
+            "global_modifiers": {
+                "comment": "Social pressure increases Altruism weight.",
+                "weights": {
+                    "altruism": 0.5,
+                    "bravery": -0.5
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Postaw wszystkim piwo",
+                            "en": "Buy everyone a beer"
+                        },
+                        "description": {
+                            "pl": "Zdobędziesz sympatię tłumu, ale sakiewka schudnie.",
+                            "en": "You'll win the crowd's favor, but your purse will lighten."
+                        },
+                        "weights": {
+                            "bravery": 0.0,
+                            "rationalism": -0.5,
+                            "altruism": 1.5,
+                            "materialism": -1.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Ignoruj i usiądź sam",
+                            "en": "Ignore and sit alone"
+                        },
+                        "description": {
+                            "pl": "Nie przyszedłeś tu szukać przyjaciół.",
+                            "en": "You didn't come here to make friends."
+                        },
+                        "weights": {
+                            "bravery": 0.0,
+                            "rationalism": 0.5,
+                            "altruism": -1.5,
+                            "materialism": 0.5
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "id": "loc_cursed_swamp",
+            "type": "location",
+            "tag": "wild",
+            "title": {
+                "pl": "Przeklęte Bagno",
+                "en": "Cursed Swamp"
+            },
+            "description": {
+                "pl": "Ścieżka znika pod zgniłą wodą. Widzisz skrót przez grzęzawisko.",
+                "en": "The path disappears under rot-water. You see a shortcut through the mire."
+            },
+            "global_modifiers": {
+                "comment": "Wild reduces Rationalism (instinct takes over).",
+                "weights": {
+                    "rationalism": -0.5,
+                    "bravery": 0.5
+                }
+            },
+            "main_encounter": {
+                "options": {
+                    "a": {
+                        "name": {
+                            "pl": "Idź na przełaj",
+                            "en": "Go cross-country"
+                        },
+                        "description": {
+                            "pl": "Błoto i pijawki cię nie powstrzymają. Oszczędzisz czas.",
+                            "en": "Mud and leeches won't stop you. You'll save time."
+                        },
+                        "weights": {
+                            "bravery": 1.5,
+                            "rationalism": -1.0,
+                            "altruism": 0.0,
+                            "materialism": 0.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    },
+                    "b": {
+                        "name": {
+                            "pl": "Szukaj twardego gruntu",
+                            "en": "Look for solid ground"
+                        },
+                        "description": {
+                            "pl": "Zajmie to dłużej, ale nie utoniesz.",
+                            "en": "It will take longer, but you won't drown."
+                        },
+                        "weights": {
+                            "bravery": -0.5,
+                            "rationalism": 1.5,
+                            "altruism": 0.0,
+                            "materialism": 0.0
+                        },
+                        "resolution": {
+                            "tests": [],
+                            "effects": []
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
